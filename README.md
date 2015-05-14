@@ -24,6 +24,9 @@ LICENSE
 VERSION
 -------
 
+#### 0.0.3
+- Added error/unimplemented
+
 #### 0.0.2
 - Added coffee/mixin
 
