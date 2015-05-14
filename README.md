@@ -24,6 +24,9 @@ LICENSE
 VERSION
 -------
 
+#### 0.0.2
+- Added coffee/mixin
+
 #### 0.0.1
 - Initial commit
 
