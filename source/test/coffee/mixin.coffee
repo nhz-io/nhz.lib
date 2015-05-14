@@ -3,7 +3,7 @@
 should = require 'should'
 mixin = require '../../coffee/mixin'
 
-describe 'mixin', ->
+describe 'coffee.mixin', ->
   it 'should be a function', ->
     mixin.should.be.an.instanceof Function
 
