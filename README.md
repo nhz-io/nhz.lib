@@ -8,6 +8,28 @@
 npm install --save nhz.lib
 ```
 
+## Contents:
+
+### nhz.lib/coffee/nil
+A `NIL` Object (Function actually, returns itself)
+
+### nhz.lib/coffee/mixin
+Create new class from prototypes with Base superclass
+```coffeescript
+mixin = require 'nhz.lib/coffee/mixin'
+
+class Base
+fooPrototype = foo: -> console.log "Foo"
+barPrototype = bar: -> console.log "Bar"
+
+class Foo extends mixin Base, fooPrototype, barPrototype
+foobar = new Foo
+foobar.foo()
+foobar.bar()
+```
+### nhz.lib/error/unimplemented
+Returns an instance of `Error` with *UNIMPLEMENTED* message
+
 Build
 -----
 ```
@@ -25,6 +47,7 @@ VERSION
 -------
 
 #### 0.0.3
+- Added info on contents to README
 - Added error/unimplemented
 - Added coffee/nil
 
