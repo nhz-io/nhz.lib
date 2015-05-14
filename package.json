@@ -1,0 +1,35 @@
+{
+  "name": "nhz.lib",
+  "version": "0.0.1",
+  "description": "NHZ Library",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nhz-io/nhz.lib"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.9.1",
+    "del": "^1.1.1",
+    "gulp": "^3.8.11",
+    "gulp-coffee": "^2.3.1",
+    "gulp-coffeelint": "^0.4.0",
+    "gulp-mocha": "^2.0.0",
+    "gulp-rename": "^1.2.0",
+    "gulp-replace": "^0.5.3",
+    "gulp-util": "^3.0.4",
+    "run-sequence": "^1.0.2",
+    "should": "^5.0.1"
+  },
+  "gulpfile": {
+    "source": "./source",
+    "build": "./build",
+    "dist": "./dist",
+    "test": "./build/test"
+  },
+  "dependencies": {
+    "extends__": "0.0.5"
+  }
+}
