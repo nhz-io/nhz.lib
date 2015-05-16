@@ -1,4 +1,4 @@
-### test: NIL ###
+### test: coffee.nil() ###
 
 should = require 'should'
 nil = require '../../coffee/nil'

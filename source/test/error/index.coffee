@@ -1,3 +1,5 @@
+### test: NHZ Library: error ###
+
 should = require 'should'
 error = require '../../error/index'
 

@@ -1,3 +1,5 @@
+### test: error.unimplemented() ###
+
 should = require 'should'
 unimplemented = require '../../error/unimplemented'
 

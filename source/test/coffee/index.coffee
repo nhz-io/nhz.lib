@@ -1,3 +1,5 @@
+### test: NHZ Library: coffee ###
+
 should = require 'should'
 coffee = require '../../coffee/index'
 

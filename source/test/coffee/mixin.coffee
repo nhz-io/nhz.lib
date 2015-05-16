@@ -1,4 +1,4 @@
-### test: mixin(base, prototypes...) ###
+### test: coffee.mixin(base, prototypes...) ###
 
 should = require 'should'
 mixin = require '../../coffee/mixin'

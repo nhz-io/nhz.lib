@@ -1,4 +1,4 @@
-### mixin(base, prototypes...) ###
+### coffee.mixin(base, prototypes...) ###
 
 module.exports = (Base, prototypes...) ->
   class Mixin extends Base or class Base
