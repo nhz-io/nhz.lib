@@ -12,6 +12,11 @@ npm install --save nhz.lib
 
 ### nhz.lib/coffee/nil
 A `NIL` Object (Function actually, returns itself)
+```coffeescript
+NIL = require 'nhz.lib/coffee/nil'
+foo = -> NIL
+if foo() is nil then console.log "GOT NIL"
+```
 
 ### nhz.lib/coffee/mixin
 Create new class from prototypes with Base superclass
@@ -29,18 +34,21 @@ foobar.bar()
 ```
 ### nhz.lib/error/unimplemented
 Returns an instance of `Error` with *UNIMPLEMENTED* message
-
+```coffeescript
+unimplemented = require 'nhz.lib/error/unimplemented'
+throw unimplemented()
+```
 
 ### nhz.lib/array/copy
 Returns an array copy (shallow)
-```
+```coffeescript
 copy = require 'nhz.lib/array/copy'
 copy [1,2,3]
 ```
 
 ### nhz.lib/object/copy
 Returns an object copy (shallow)
-```
+```coffeescript
 copy = require 'nhz.lib/object/copy'
 copy a:'1', b:'2', c:'3'
 ```
@@ -60,6 +68,10 @@ LICENSE
 
 VERSION
 -------
+#### 0.0.5
+- Added coffeescript highlight to README.md snipets
+- Added snipets for NIL and undefined
+
 #### 0.0.4
 - Added array/copy
 - Added object/copy
