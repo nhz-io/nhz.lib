@@ -30,6 +30,21 @@ foobar.bar()
 ### nhz.lib/error/unimplemented
 Returns an instance of `Error` with *UNIMPLEMENTED* message
 
+
+### nhz.lib/array/copy
+Returns an array copy (shallow)
+```
+copy = require 'nhz.lib/array/copy'
+copy [1,2,3]
+```
+
+### nhz.lib/object/copy
+Returns an object copy (shallow)
+```
+copy = require 'nhz.lib/object/copy'
+copy a:'1', b:'2', c:'3'
+```
+
 Build
 -----
 ```
@@ -45,6 +60,10 @@ LICENSE
 
 VERSION
 -------
+#### 0.0.4
+- Added array/copy
+- Added object/copy
+- Fixed comment headers
 
 #### 0.0.3
 - Added info on contents to README
