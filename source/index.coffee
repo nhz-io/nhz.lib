@@ -5,3 +5,4 @@ module.exports =
   array: require './array/index'
   object: require './object/index'
   error: require './error/index'
+  browser: reqyure './browser/index'

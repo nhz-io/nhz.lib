@@ -1,6 +1,6 @@
 {
   "name": "nhz.lib",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "NHZ Library",
   "main": "dist/index.js",
   "scripts": {

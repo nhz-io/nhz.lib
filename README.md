@@ -53,6 +53,17 @@ copy = require 'nhz.lib/object/copy'
 copy a:'1', b:'2', c:'3'
 ```
 
+### nhz.lib/browser/next-animation-frame
+Callbacks for the next animation frame. Chainable with `.this(callbacks...)`.  
+Chained callbacks will be called upcoming frames. One group per frame!
+
+```coffeescript
+next = require 'nhz.lib/browser/next-animation-frame'
+next -> document.body.style.backgroundColor =  'red'
+.then -> document.body.style.backgroundColor = 'green'
+.then -> document.body.style.backgroundColor = 'blue'
+```
+
 Build
 -----
 ```
@@ -68,6 +79,9 @@ LICENSE
 
 VERSION
 -------
+#### 0.0.6
+- Added browser/next-animation-frame
+
 #### 0.0.5
 - Added coffeescript highlight to README.md snipets
 - Added snipets for NIL and undefined
