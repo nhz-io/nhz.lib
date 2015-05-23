@@ -13,7 +13,7 @@ npm install --save nhz.lib
 ### nhz.lib/coffee/nil
 A `NIL` Object (Function actually, returns itself)
 ```coffeescript
-NIL = require 'nhz.lib/coffee/nil'
+NIL = require 'nhz.lib/dist/coffee/nil'
 foo = -> NIL
 if foo() is nil then console.log "GOT NIL"
 ```
@@ -21,7 +21,7 @@ if foo() is nil then console.log "GOT NIL"
 ### nhz.lib/coffee/mixin
 Create new class from prototypes with Base superclass
 ```coffeescript
-mixin = require 'nhz.lib/coffee/mixin'
+mixin = require 'nhz.lib/dist/coffee/mixin'
 
 class Base
 fooPrototype = foo: -> console.log "Foo"
@@ -35,33 +35,53 @@ foobar.bar()
 ### nhz.lib/error/unimplemented
 Returns an instance of `Error` with *UNIMPLEMENTED* message
 ```coffeescript
-unimplemented = require 'nhz.lib/error/unimplemented'
+unimplemented = require 'nhz.lib/dist/error/unimplemented'
 throw unimplemented()
 ```
 
 ### nhz.lib/array/copy
 Returns an array copy (shallow)
 ```coffeescript
-copy = require 'nhz.lib/array/copy'
+copy = require 'nhz.lib/dist/array/copy'
 copy [1,2,3]
 ```
 
 ### nhz.lib/object/copy
 Returns an object copy (shallow)
 ```coffeescript
-copy = require 'nhz.lib/object/copy'
+copy = require 'nhz.lib/dist/object/copy'
 copy a:'1', b:'2', c:'3'
 ```
 
 ### nhz.lib/browser/next-animation-frame
-Callbacks for the next animation frame. Chainable with `.this(callbacks...)`.  
+Callbacks for the next animation frame. Chainable with `.this(callbacks...)`.
 Chained callbacks will be called upcoming frames. One group per frame!
 
 ```coffeescript
-next = require 'nhz.lib/browser/next-animation-frame'
+next = require 'nhz.lib/dist/browser/next-animation-frame'
 next -> document.body.style.backgroundColor =  'red'
 .then -> document.body.style.backgroundColor = 'green'
 .then -> document.body.style.backgroundColor = 'blue'
+```
+
+### nhz.lib/geometry/rectangle/has
+Checks if point belongs to rectangle.
+- rectangle is an array: [x, y, width, height]
+- point is an array: [x, y]
+
+```coffeescript
+has = require 'nhz.lib/dist/geometry/rectangle/has'
+has [1,1,2,2], [1.5, 1.5]
+```
+
+### nhz.lib/geometry/rectangle/has
+Checks if point belongs to circle.
+- circle is an array: [x, y, radius]
+- point is an array: [x, y]
+
+```coffeescript
+has = require 'nhz.lib/dist/geometry/circle/has'
+has [1,1,2], [2.3, 2.3]
 ```
 
 Build
@@ -79,6 +99,10 @@ LICENSE
 
 VERSION
 -------
+#### 0.0.7
+- Added geometry/rectangle/has
+- Added geometry/circle/has
+
 #### 0.0.6
 - Added browser/next-animation-frame
 
