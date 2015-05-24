@@ -97,7 +97,7 @@ gulp
 Call `tasks` in parallel and after they finished,
 call the `callback` with errors and results
 
-```
+```coffeescript
 parallel = require 'nhz.lib/dist/async/parallel'
 parallel ((cb) -> cb null, 1), ((cb) -> cb null, 2)
 .timeout 300
