@@ -93,12 +93,26 @@ npm install
 gulp
 ```
 
+### nhz.lib/async/parallel
+Call `tasks` in parallel and after they finished,
+call the `callback` with errors and results
+
+```
+parallel = require 'nhz.lib/dist/async/parallel'
+parallel ((cb) -> cb null, 1), ((cb) -> cb null, 2)
+.timeout 300
+.then (err, res) ->
+```
+
 LICENSE
 -------
 #### [MIT](LICENSE)
 
 VERSION
 -------
+#### 0.0.8
+- Added async/parallel
+
 #### 0.0.7
 - Added geometry/rectangle/has
 - Added geometry/circle/has

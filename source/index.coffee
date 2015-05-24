@@ -7,3 +7,4 @@ module.exports =
   error: require './error/index'
   browser: require './browser/index'
   geometry: require './geometry/index'
+  async : require './async/index'
