@@ -65,12 +65,15 @@ next -> document.body.style.backgroundColor =  'red'
 ```
 
 ### nhz.lib/browser/event-target
-EventTarget class (https://developer.mozilla.org/en-US/docs/Web/API/EventTarget)[https://developer.mozilla.org/en-US/docs/Web/API/EventTarget]
-Can be instantiated or extended by normal means. Wraps around DOM element and proxies the EventTarget calls.If an argument supplied to constructor
-it will be used as an internal __event_target. Accepted argument types:
-* 'String' - new DOM element will be created from string and assigned to __event_target
-* 'EventTarget' - will use the argument's __event_target property for its own __event_target
-* 'Native EventTarget (DOM Element) - will use the argument as __event_target'
+**EventTarget class** https://developer.mozilla.org/en-US/docs/Web/API/EventTarget   
+* Can be instantiated or extended by normal means. 
+* Wraps around DOM element and proxies the EventTarget calls.
+* Constructor argument is used as __event_target (if provided)
+
+**Accepted argument types:**
+* 'String' - new DOM element will be created from string
+* 'EventTarget' - will use the argument's __event_target property
+* 'Native EventTarget (DOM Element) - will use the argument value
 
 ```coffeescript
 EventTarget = require 'nhz.lib/dist/browser/EventTarget'
@@ -80,13 +83,6 @@ t = new EventTarget 'div'
 t1 = new EventTarget t
 t = document.createElement 'div'
 t1 = new EventTarget t
-```
-
-```coffeescript
-next = require 'nhz.lib/dist/browser/next-animation-frame'
-next -> document.body.style.backgroundColor =  'red'
-.then -> document.body.style.backgroundColor = 'green'
-.then -> document.body.style.backgroundColor = 'blue'
 ```
 
 ### nhz.lib/geometry/rectangle/has
