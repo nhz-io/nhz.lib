@@ -64,27 +64,6 @@ next -> document.body.style.backgroundColor =  'red'
 .then -> document.body.style.backgroundColor = 'blue'
 ```
 
-### nhz.lib/browser/event-target
-**EventTarget class** (https://developer.mozilla.org/en-US/docs/Web/API/EventTarget)
-* Can be instantiated or extended by normal means. 
-* Wraps around DOM element and proxies the EventTarget calls.
-* Constructor argument is used as __event_target (if provided)
-
-**Accepted argument types:**
-* 'String' - new DOM element will be created from string
-* 'EventTarget' - will use the argument's __event_target property
-* 'Native EventTarget (DOM Element) - will use the argument value
-
-```coffeescript
-EventTarget = require 'nhz.lib/dist/browser/event-target'
-
-t = new EventTarget
-t = new EventTarget 'div'
-t1 = new EventTarget t
-t = document.createElement 'div'
-t1 = new EventTarget t
-```
-
 ### nhz.lib/geometry/rectangle/has
 Checks if point belongs to rectangle.
 - rectangle is an array: [x, y, width, height]
@@ -131,6 +110,9 @@ LICENSE
 
 VERSION
 -------
+#### 0.0.10
+- Removed browser/event-target
+
 #### 0.0.9
 - Added browser/event-target
 

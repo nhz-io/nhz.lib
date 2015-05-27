@@ -1,6 +1,6 @@
 ### test: NHZ Library ###
 
-require './stage'
+#require './stage'
 should = require 'should'
 nhz = require '../index'
 
