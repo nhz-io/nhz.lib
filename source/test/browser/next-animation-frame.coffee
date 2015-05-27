@@ -1,8 +1,9 @@
 ### test: browser.NextAnimationFrame(callbacks...) ###
 
+require '../stage'
 should = require 'should'
 NextAnimationFrame = require '../../browser/next-animation-frame'
-global.requestAnimationFrame = (callback) -> setTimeout callback
+
 
 describe 'NextAnimationFrame(callbacks...)', ->
   it 'should be a function', ->
