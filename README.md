@@ -10,28 +10,6 @@ npm install --save nhz.lib
 
 ## Contents:
 
-### nhz.lib/coffee/nil
-A `NIL` Object (Function actually, returns itself)
-```coffeescript
-NIL = require 'nhz.lib/dist/coffee/nil'
-foo = -> NIL
-if foo() is nil then console.log "GOT NIL"
-```
-
-### nhz.lib/coffee/mixin
-Create new class from prototypes with Base superclass
-```coffeescript
-mixin = require 'nhz.lib/dist/coffee/mixin'
-
-class Base
-fooPrototype = foo: -> console.log "Foo"
-barPrototype = bar: -> console.log "Bar"
-
-class Foo extends mixin Base, fooPrototype, barPrototype
-foobar = new Foo
-foobar.foo()
-foobar.bar()
-```
 ### nhz.lib/error/unimplemented
 Returns an instance of `Error` with *UNIMPLEMENTED* message
 ```coffeescript
@@ -110,6 +88,10 @@ LICENSE
 
 VERSION
 -------
+#### 0.0.11
+- Removed coffee/mixin in favor of [extends__][extends__-url]
+- Removed coffee/nil
+
 #### 0.0.10
 - Removed browser/event-target
 - Added web-api/event
@@ -153,3 +135,4 @@ VERSION
 
 [npm-image]: https://nodei.co/npm/nhz.lib.png
 [npm-url]: https://nodei.co/npm/nhz.lib
+[extends__-url]: https://github.com/nhz-io/extends__
