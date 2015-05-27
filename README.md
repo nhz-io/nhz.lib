@@ -65,7 +65,7 @@ next -> document.body.style.backgroundColor =  'red'
 ```
 
 ### nhz.lib/browser/event-target
-**EventTarget class** https://developer.mozilla.org/en-US/docs/Web/API/EventTarget   
+**EventTarget class** (https://developer.mozilla.org/en-US/docs/Web/API/EventTarget)
 * Can be instantiated or extended by normal means. 
 * Wraps around DOM element and proxies the EventTarget calls.
 * Constructor argument is used as __event_target (if provided)
@@ -76,7 +76,7 @@ next -> document.body.style.backgroundColor =  'red'
 * 'Native EventTarget (DOM Element) - will use the argument value
 
 ```coffeescript
-EventTarget = require 'nhz.lib/dist/browser/EventTarget'
+EventTarget = require 'nhz.lib/dist/browser/event-target'
 
 t = new EventTarget
 t = new EventTarget 'div'
