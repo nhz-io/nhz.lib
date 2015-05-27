@@ -5,3 +5,4 @@ browser = require '../../browser/index'
 
 describe 'browser', ->
   it 'should have "NextAnimationFrame" function', -> browser.NextAnimationFrame.should.be.an.instanceof Function
+  it 'should have "EventTarget" function', -> browser.EventTarget.should.be.an.instanceof Function
