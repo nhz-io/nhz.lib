@@ -112,6 +112,8 @@ VERSION
 -------
 #### 0.0.10
 - Removed browser/event-target
+- Added web-api/event
+- Added web-api/event-target
 
 #### 0.0.9
 - Added browser/event-target
