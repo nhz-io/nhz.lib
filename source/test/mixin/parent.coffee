@@ -1,7 +1,11 @@
-### test: Parent ###
+### test: mixin.Parent ###
 
 should = require 'should'
 Parent = require '../../mixin/parent'
+Child = require '../../mixin/child'
+isConfigurable = require '../../property/is-configurable'
+isEnumerable = require '../../property/is-enumerable'
+isWritable = require '../../property/is-writable'
 
 describe 'Parent', ->
   it 'should be a class', ->
@@ -39,44 +43,84 @@ describe 'Parent', ->
 
     it 'should have "hasChild()" method', -> (new Parent).hasChild.should.be.a.Function
 
-    it 'should have "hasChildren()" method', -> (new Parent).hasChildren.should.be.a.Function
-
     describe '#children', ->
+      it 'should be an array', -> (new Parent).children.should.be.an.Array
+      it 'should be configurable', -> (isConfigurable (new Parent), 'children').should.be.equal yes
+      it 'should be enumerable', -> (isEnumerable (new Parent), 'children').should.be.equal yes
+      it 'should not be writable', -> (isWritable (new Parent), 'children').should.be.equal no
+      it 'should not be "____children" property', -> (test = new Parent).children.should.not.be.equal test.___children
+      it 'should be a copy of "____children" property', ->
+        (test = new Parent).___children.push 'test'
+        test.children[0].should.be.equal 'test'
 
     describe '#___children', ->
+      it 'should be an array', -> (new Parent).___children.should.be.an.Array
+      it 'should not be configurable', -> (isConfigurable (new Parent), '___children').should.be.equal no
+      it 'should not be enumerable', -> (isEnumerable (new Parent), '___children').should.be.equal no
+      it 'should not be writable', -> (isWritable (new Parent), '___children').should.be.equal no
 
     describe '#___is_parent', ->
+      it 'should be boolean', -> (new Parent).___is_parent.should.be.a.Boolean
+      it 'should not be configurable', -> (isConfigurable (new Parent), '___is_parent').should.be.equal no
+      it 'should not be enumerable', -> (isEnumerable (new Parent), '___is_parent').should.be.equal no
+      it 'should not be writable', -> (isWritable (new Parent), '___is_parent').should.be.equal no
 
-    describe '#appendChild()', ->
-      it 'should be a stub', -> (-> (new Parent).appendChild()).should.throw 'UNIMPLEMENTED'
+    describe '#appendChild(newChild)', ->
+      it 'should do nothing if newChild is not "Child" (___is_child property is not "true")', ->
+      it 'should return the "Parent" instance', -> (test = new Parent).appendChild().should.be.equal test
+      it 'should append the "newChild" to "____children"', ->
+      it 'should not append duplicates', ->
 
-    describe '#removeChild()', ->
-      it 'should be a stub', -> (-> (new Parent).removeChild()).should.throw 'UNIMPLEMENTED'
+    describe '#removeChild(child)', ->
+      it 'should do nothing if child is not "Child" (___is_child property is not "true")', ->
+      it 'should return the "Parent" instance', -> (test = new Parent).appendChild().should.be.equal test
 
-    describe '#replaceChild()', ->
-      it 'should be a stub', -> (-> (new Parent).replaceChild()).should.throw 'UNIMPLEMENTED'
+    describe '#replaceChild(child, withChild)', ->
+      it 'should do nothing if child is not "Child" (___is_child property is not "true")', ->
+      it 'should do nothing if withChild is not "Child" (___is_child property is not "true")', ->
+      it 'should return the "Parent" instance', -> (test = new Parent).appendChild().should.be.equal test
 
     describe '#firstChild()', ->
-      it 'should be a stub', -> (-> (new Parent).firstChild()).should.throw 'UNIMPLEMENTED'
+      it 'should return null if there are no children', -> (test = new Parent).appendChild().should.be.equal test
+      it 'should return the "Child" instance', -> (test = new Parent).appendChild().should.be.equal test
 
     describe '#lastChild()', ->
-      it 'should be a stub', -> (-> (new Parent).lastChild()).should.throw 'UNIMPLEMENTED'
+      it 'should return null if there are no children', -> (test = new Parent).appendChild().should.be.equal test
+      it 'should return the "Child" instance', -> (test = new Parent).appendChild().should.be.equal test
 
-    describe '#nextChild()', ->
-      it 'should be a stub', -> (-> (new Parent).nextChild()).should.throw 'UNIMPLEMENTED'
+    describe '#nextChild(child)', ->
+      it 'should do nothing if child is not "Child" (___is_child property is not "true")', ->
+      it 'should return null if there are no children', -> (test = new Parent).appendChild().should.be.equal test
+      it 'should return null if there is no "child"', -> (test = new Parent).appendChild().should.be.equal test
+      it 'should return null if there are no children after "child"', -> (test = new Parent).appendChild().should.be.equal test
+      it 'should return the "Child" instance which comes after "child', -> (test = new Parent).appendChild().should.be.equal test
 
-    describe '#previousChild()', ->
-      it 'should be a stub', -> (-> (new Parent).previousChild()).should.throw 'UNIMPLEMENTED'
+    describe '#previousChild(child)', ->
+      it 'should do nothing if child is not "Child" (___is_child property is not "true")', ->
+      it 'should return null if there are no children', -> (test = new Parent).appendChild().should.be.equal test
+      it 'should return null if there is no "child"', -> (test = new Parent).appendChild().should.be.equal test
+      it 'should return null if there are no children before "child"', -> (test = new Parent).appendChild().should.be.equal test
+      it 'should return the "Child" instance which comes before "child', -> (test = new Parent).appendChild().should.be.equal test
 
-    describe '#insertBefore()', ->
-      it 'should be a stub', -> (-> (new Parent).insertBefore()).should.throw 'UNIMPLEMENTED'
+    describe '#insertBefore(child, newChild)', ->
+      it 'should do nothing if child is not "Child" (___is_child property is not "true")', ->
+      it 'should do nothing if newChild is not "Child" (___is_child property is not "true")', ->
+      it 'should return an instance of "Parent"', ->
+      it 'should do nothing if there are no children', -> (test = new Parent).appendChild().should.be.equal test
+      it 'should do nothing if there is no "child"', -> (test = new Parent).appendChild().should.be.equal test
+      it 'should move the "newChild" before "child" if "newChild" exists', ->
+      it 'should insert the "newChild" before "child"', ->
 
-    describe '#insertAfter()', ->
-      it 'should be a stub', -> (-> (new Parent).insertAfter()).should.throw 'UNIMPLEMENTED'
+    describe '#insertAfter(child, newChild)', ->
+      it 'should do nothing if child is not "Child" (___is_child property is not "true")', ->
+      it 'should do nothing if newChild is not "Child" (___is_child property is not "true")', ->
+      it 'should return an instance of "Parent"', ->
+      it 'should do nothing if there are no children', -> (test = new Parent).appendChild().should.be.equal test
+      it 'should do nothing if there is no "child"', -> (test = new Parent).appendChild().should.be.equal test
+      it 'should move the "newChild" after "child" if "newChild" exists', ->
+      it 'should insert the "newChild" after "child"', ->
 
-    describe '#hasChild()', ->
-      it 'should be a stub', -> (-> (new Parent).hasChild()).should.throw 'UNIMPLEMENTED'
-
-    describe '#hasChildren()', ->
-      it 'should be a stub', -> (-> (new Parent).hasChildren()).should.throw 'UNIMPLEMENTED'
-
+    describe '#hasChild(child)', ->
+      it 'should return "null" if "child" is not "Child" (___is_child property is not "true")', ->
+      it 'should return "true" if "child" exists', ->
+      it 'should return "false" if "child" does not exist', ->
