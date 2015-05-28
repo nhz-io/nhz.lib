@@ -189,18 +189,18 @@ describe 'Child', ->
         it 'should call nextChild() on ___parent', ->
           pass = no
           (child = new Child).parent = ___is_parent:yes, nextChild: -> pass = yes
-          child.previousSibling
+          child.nextSibling
           pass.should.be.ok
 
         it 'should pass itself as first argument to nextChild() of the ____parent', ->
           pass = no
           (child = new Child).parent = ___is_parent:yes, nextChild:(value) -> pass = (value is child)
-          test = child.previousSibling
+          test = child.nextSibling
           pass.should.be.ok
 
         it 'should return the result of the nextChild() call', ->
           (child = new Child).parent = ___is_parent:yes, nextChild: -> 'pass'
-          child.previousSibling.should.be.equal 'pass'
+          child.nextSibling.should.be.equal 'pass'
 
 
     describe '#replaceWith(child)', ->
