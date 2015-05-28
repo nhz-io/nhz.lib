@@ -126,43 +126,39 @@ describe 'Parent', ->
 
     describe '#nextChild(child)', ->
       it 'should do nothing if child is not "Child" (___is_child property is not "true")', ->
-        should(test = new Parent).nextChild({}).not.be.ok
+        should((new Parent).nextChild {}).not.be.ok
 
-      it 'should return null if there are no children', -> (test = new Parent).nextChild(___is_child:yes).should.be.null
+      it 'should return null if there are no children', -> should((new Parent).nextChild ___is_child:yes).be.null
 
-      it 'should return null if there is no "child"', -> (test = new Parent).appendChild(___is_child:yes).nextChild().should.be.null
+      it 'should return null if there is no "child"', -> should((new Parent).appendChild(___is_child:yes).nextChild()).be.null
 
       it 'should return null if there are no children after "child"', ->
-        (test = new Parent)
-          .appendChild child = ___is_child:yes
-          .nextChild child
-          .should.be.null
+        should((new Parent).appendChild(child = ___is_child:yes).nextChild child).be.null
 
       it 'should return the "Child" instance which comes after "child', ->
-        (test = new Parent)
-          .appendChild child =___is_child:yes
+        (new Parent)
+          .appendChild child = ___is_child:yes
           .appendChild next = ___is_child:yes
-          .nextChild().should.be.equal next
+          .nextChild child
+          .should.be.equal next
 
     describe '#previousChild(child)', ->
       it 'should do nothing if child is not "Child" (___is_child property is not "true")', ->
-        should(test = new Parent).previousChild({}).not.be.ok
+        should((new Parent).previousChild {}).not.be.ok
 
-      it 'should return null if there are no children', -> (test = new Parent).previousChild(___is_child:yes).should.be.null
+      it 'should return null if there are no children', -> should((new Parent).previousChild ___is_child:yes).be.null
 
-      it 'should return null if there is no "child"', -> (test = new Parent).appendChild(___is_child:yes).previousChild().should.be.null
+      it 'should return null if there is no "child"', -> should((new Parent).appendChild(___is_child:yes).previousChild()).be.null
 
       it 'should return null if there are no children before "child"', ->
-        (test = new Parent)
-          .appendChild child = ___is_child:yes
-          .previousChild child
-          .should.be.null
+        should((new Parent).appendChild(child = ___is_child:yes).previousChild child).be.null
 
       it 'should return the "Child" instance which comes before "child', ->
-        (test = new Parent)
+        (new Parent)
           .appendChild previous = ___is_child:yes
           .appendChild child =___is_child:yes
-          .previousChild().should.be.equal previous
+          .previousChild child
+          .should.be.equal previous
 
     describe '#insertBefore(child, newChild)', ->
       it 'should return an instance of "Parent"', -> (test = new Parent).insertBefore().should.be.equal test
