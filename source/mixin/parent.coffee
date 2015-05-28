@@ -1,7 +1,6 @@
 ### mixin.Parent ###
 
 module.exports = class Parent
-
   constructor: ->
 
     Object.defineProperties this,
@@ -12,22 +11,57 @@ module.exports = class Parent
 
       ___is_parent: configurable:no, enumerable:no, writable:no, value:yes
 
-  appendChild: -> throw new Error 'UNIMPLEMENTED'
+  appendChild: (child) ->
+    if child?.___is_child and -1 is @___children.indexOf child
+      @___children.push child
+    return this
 
-  removeChild: -> throw new Error 'UNIMPLEMENTED'
+  removeChild: (child) ->
+    if child?.___is_child and -1 isnt idx = @___children.indexOf child
+      @___children.splice idx, 1
+    return this
 
-  replaceChild: -> throw new Error 'UNIMPLEMENTED'
+  replaceChild: (child, withChild) ->
+    if @___children.length and child?.__is_child and withChild?.__is_child
+      if -1 is @___children.indexOf withChild and -1 isnt idx = @___children.indexOf child
+        @___children[idx] = withChild
+    return this
 
-  firstChild: -> throw new Error 'UNIMPLEMENTED'
+  firstChild: -> @___children[0] or null
 
-  lastChild: -> throw new Error 'UNIMPLEMENTED'
+  lastChild: -> if len = @___children.length then @___children[len-1] else null
 
-  nextChild: -> throw new Error 'UNIMPLEMENTED'
+  nextChild: (child) ->
+    if @___children.length and child?.___is_child and -1 isnt idx = @___children.indexOf child
+      next = @___children[idx+1]
+    return next or null
 
-  previousChild: -> throw new Error 'UNIMPLEMENTED'
+  previousChild: (child) ->
+    if @___children.length and child?.___is_child and 1 >= idx = @___children.indexOf child
+      previous = @___children[idx-1]
+    return previous or null
 
-  insertBefore: -> throw new Error 'UNIMPLEMENTED'
+  insertBefore: (child, newChild) ->
+    if @___children.length and child isnt newChild and child?.___is_child and newChild?.___is_child
+      if -1 isnt idx = @___children.indexOf child
+        if -1 isnt _idx = @___children.indexOf newChild then @___children.splice _idx, 1
+        if idx is 0 then @___children.unshift newChild
+        else
+          children = @___children.splice 0, @___children.length
+          @___children.concat children[...idx-1], [newChild], children[idx...]
+    return this
 
-  insertAfter: -> throw new Error 'UNIMPLEMENTED'
+  insertAfter: ->
+    if @___children.length and child isnt newChild and child?.___is_child and newChild?.___is_child
+      if -1 isnt idx = @___children.indexOf child
+        if -1 isnt _idx = @___children.indexOf newChild then @___children.splice _idx, 1
+        if idx is @___children.length - 1 then @___children.push newChild
+        else
+          children = @___children.splice 0, @___children.length
+          @___children.concat children[...idx], [newChild], children[idx+1...]
+    return this
 
-  hasChild: -> throw new Error 'UNIMPLEMENTED'
+  hasChild: (child) ->
+    if @___children.length and child?___is_child and -1 isnt @___children.indexOf child
+      return true
+    return fals
