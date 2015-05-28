@@ -106,22 +106,22 @@ describe 'Child', ->
           pass.should.be.ok
 
         it 'should pass itself as first argument to "removeChild()" if "value" is "null" and "___parent" is set', ->
-          pass = no
-          (child = new Child).___parent = ___is_parent:yes, removeChild: (value) -> pass = (value is child)
+          result = 'fail'
+          (child = new Child).___parent = ___is_parent:yes, removeChild: (value) -> result = value
           child.parent = null
-          pass.should.be.ok
+          result.should.be.equal child
 
         it 'should pass itself as first argument to "removeChild()" if "value" is "undefined" and "___parent" is set', ->
-          pass = no
-          (child = new Child).___parent = ___is_parent:yes, removeChild: (value) -> pass = (value is child)
-          child.parent = null
-          pass.should.be.ok
+          result = 'fail'
+          (child = new Child).___parent = ___is_parent:yes, removeChild: (value) -> result = value
+          child.parent = undefined
+          result.should.be.equal child
 
         it 'should pass itself as first argument to "removeChild()" if "value" is "Parent" and "___parent" is set', ->
-          pass = no
-          (child = new Child).___parent = ___is_parent:yes, removeChild: (value) -> pass = (value is child)
-          child.parent = ___is_parent:yes, appendChild: ->
-          pass.should.be.ok
+          result = 'fail'
+          (child = new Child).___parent = ___is_parent:yes, removeChild: (value) -> result = value
+          child.parent = ___is_parent:yes
+          result.should.be.equal child
 
         it 'should set the "___parent" to "null" before calling "removeChild()"', ->
           pass = no
@@ -213,9 +213,10 @@ describe 'Child', ->
         pass.should.be.ok
 
       it 'should pass itself as first argument to "replaceChild()"', ->
-        pass = no
-        (child = new Child).parent = ___is_parent:yes, replaceChild: -> pass = (child is arguments[0])
-        pass.should.be.ok
+        result = 'fail'
+        (child = new Child).parent = ___is_parent:yes, replaceChild: -> result = arguments[0]
+        child.replaceWith ___is_child:yes
+        result.should.be.equal child
 
       it 'should pass the "child" as second argument to "replaceChild()"', ->
         pass = no

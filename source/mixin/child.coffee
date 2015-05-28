@@ -12,7 +12,7 @@ module.exports = class Child
         set: (value) =>
           parent = @___parent
           if value?
-            if value.___is_parent and value isnt parent
+            if value isnt parent and value.___is_parent
               @___parent = null
               parent?.removeChild? this
               @___parent = value
@@ -35,7 +35,15 @@ module.exports = class Child
 
       ___parent: configurable:no, enumerable:no, writable:yes, value:null
 
-  replaceWith: -> throw new Error 'UNIMPLEMENTED'
+  replaceWith: (child) ->
+    if child and child isnt this and child.___is_child and @___parent
+      if @___parent isnt parent = child.___parent
+        child.___parent = null
+        parent?.removeChild? child
+        parent = child.___parent = @___parent
+        @___parent = null
+        parent.replaceChild? this, child
+    return this
 
   remove: -> throw new Error 'UNIMPLEMENTED'
 
