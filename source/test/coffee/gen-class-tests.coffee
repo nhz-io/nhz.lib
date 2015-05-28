@@ -43,6 +43,8 @@ describe 'genClassTests(args)', ->
           describe '#p1', ->
           describe '#p2', ->
           describe '#m1()', ->
+            it 'should be a stub', -> (-> (new Test).m1()).should.throw 'UNIMPLEMENTED'
           describe '#m2()', ->
+            it 'should be a stub', -> (-> (new Test).m2()).should.throw 'UNIMPLEMENTED'
 
       """

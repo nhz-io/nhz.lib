@@ -63,6 +63,7 @@ module.exports = (args = {}) ->
     for method in methods or [] then result += """
       ---
           describe '##{method}()', ->
+            it 'should be a stub', -> (-> (new #{name}).#{method}()).should.throw 'UNIMPLEMENTED'
 
     """
 
