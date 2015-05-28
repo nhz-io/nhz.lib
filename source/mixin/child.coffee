@@ -19,18 +19,17 @@ module.exports = class Child
               value.appendChild? this
           else
             @___parent = null
-            parent?.removeChild this
+            parent?.removeChild? this
 
           return @___parent
 
       previousSibling:
         configurable:yes, enumerable:yes
-        get: -> if parent = @___parent then parent.previousChild this else null
-
+        get: -> if parent = @___parent then parent.previousChild? this else null
 
       nextSibling:
         configurable:yes, enumerable:yes
-        get: -> if parent = @___parent then parent.nextChild this else null
+        get: -> if parent = @___parent then parent.nextChild? this else null
 
       ___is_child: configurable:no, enumerable:no, writable:no, value:yes
 
