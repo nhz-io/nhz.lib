@@ -22,7 +22,7 @@ module.exports = class Parent
     return this
 
   replaceChild: (child, withChild) ->
-    if @___children.length and child?.__is_child and withChild?.__is_child
+    if @___children.length and child?.___is_child and withChild?.___is_child
       if -1 is @___children.indexOf withChild and -1 isnt idx = @___children.indexOf child
         @___children[idx] = withChild
     return this
