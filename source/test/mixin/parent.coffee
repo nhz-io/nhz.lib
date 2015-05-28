@@ -56,7 +56,7 @@ describe 'Parent', ->
       it 'should be an array', -> (new Parent).___children.should.be.an.Array
       it 'should not be configurable', -> (isConfigurable (new Parent), '___children').should.be.equal no
       it 'should not be enumerable', -> (isEnumerable (new Parent), '___children').should.be.equal no
-      it 'should not be writable', -> (isWritable (new Parent), '___children').should.be.equal no
+      it 'should be writable', -> (isWritable (new Parent), '___children').should.be.equal no
 
     describe '#___is_parent', ->
       it 'should be boolean', -> (new Parent).___is_parent.should.be.a.Boolean
@@ -72,12 +72,12 @@ describe 'Parent', ->
 
       it 'should append the "newChild" to "____children"', ->
         child = ___is_child:yes
-        (new Parent).appendChild(test).___children.length.should.be.equal 1
+        (test = new Parent).appendChild(child).___children.length.should.be.equal 1
         test.___children[0].should.be.equal child
 
       it 'should not append duplicates', ->
         child = ___is_child:yes
-        (new Parent).appendChild(test).appendChild(test).___children.length.should.be.equal 1
+        (new Parent).appendChild(child).appendChild(child).___children.length.should.be.equal 1
 
     describe '#removeChild(child)', ->
       it 'should return the "Parent" instance', -> (test = new Parent).removeChild().should.be.equal test
@@ -87,7 +87,7 @@ describe 'Parent', ->
         (test.removeChild child).___children[0].should.be.equal child
 
       it 'should remove the child', ->
-        (test = new Parent).___children[0] = (child:___is_child:yes)
+        (test = new Parent).___children[0] = (child = ___is_child:yes)
         (test.removeChild child).___children.length.should.be.equal 0
 
     describe '#replaceChild(child, withChild)', ->
@@ -103,7 +103,7 @@ describe 'Parent', ->
 
       it 'should replace the "child" with "withChild"', ->
         (test = new Parent).___children[0] = (child = ___is_child:true)
-        (test.repclaceChild child, (withChild = ___is_child:true)).___children[0].should.be.equal withChild
+        (test.replaceChild child, (withChild = ___is_child:true)).___children[0].should.be.equal withChild
         test.___children.length.should.be.equal 1
 
     describe '#firstChild()', ->
