@@ -53,7 +53,7 @@ describe 'Child', ->
 
       describe 'getter', -> it 'should return the value of ___parent', ->
         (child = new Child).___parent = 'test'
-        should.parent.should.be.equal child.___parent
+        child.parent.should.be.equal child.___parent
 
       describe 'setter', ->
         it 'should not change "___parent" if "value" is not "Parent" (property ___is_parent is not "true")', ->

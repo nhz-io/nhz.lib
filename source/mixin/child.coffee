@@ -9,7 +9,19 @@ module.exports = class Child
       parent:
         configurable:yes, enumerable:yes,
         get: -> @___parent
-        set: (value) -> @___parent = value
+        set: (value) =>
+          parent = @___parent
+          if value?
+            if value.___is_parent and value isnt parent
+              @___parent = null
+              parent?.removeChild? this
+              @___parent = value
+              value.appendChild? this
+          else
+            @___parent = null
+            parent?.removeChild this
+
+          return @___parent
 
       previousSibling:
         configurable:yes, enumerable:yes
