@@ -88,6 +88,9 @@ LICENSE
 
 VERSION
 -------
+#### 0.0.14
+- Added bin/gen-class-tests
+
 #### 0.0.13
 - Added web-api/node stub
 - Added coffee/gen-class-tests generator
