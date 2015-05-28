@@ -204,15 +204,78 @@ describe 'Child', ->
 
 
     describe '#replaceWith(child)', ->
-      it 'should return instance of "Child"', -> (child = new Child).replaceWith(new Child).should.be.equal child
+      it 'should return itself', -> (child = new Child).replaceWith(new Child).should.be.equal child
 
-      it 'should replace itself with che "child"', ->
-        (child = new Child).parent = (parent = new Parent)
-        parent.children[0].should.be.equal child
-        child.replaceWith (replacement = new Child)
-        parent.children.length.should.be.equal 1
-        parent.children[0].should.be.equal replacement
-        should(child.parent).be.null
+      it 'should call "replaceChild()" of the ___parent', ->
+        pass = no
+        (child = new Child).parent = ___is_parent:yes, replaceChild: -> pass = yes
+        child.replaceWith ___is_child:yes
+        pass.should.be.ok
+
+      it 'should pass itself as first argument to "replaceChild()"', ->
+        pass = no
+        (child = new Child).parent = ___is_parent:yes, replaceChild: -> pass = (child is arguments[0])
+        pass.should.be.ok
+
+      it 'should pass the "child" as second argument to "replaceChild()"', ->
+        pass = no
+        child = new Child
+        (test = new Child).parent = ___is_parent:yes, replaceChild: -> pass = (child is arguments[1])
+        test.replaceWith child
+        pass.should.be.ok
+
+      it 'should set "___parent" to "null"', ->
+        (test = new Child).parent = ___is_parent:yes
+        test.replaceWith new Child
+        should(test.___parent).be.null
+
+      it 'should set "___parent" to "null" before calling "replaceChild()"', ->
+        pass = no
+        (test = new Child).parent = ___is_parent:yes, replaceChild: (value) -> pass = (value.___parent is null)
+        test.replaceWith new Child
+        pass.should.be.ok
+
+      it 'should not change the "___parent" if "child" is not "Child"', ->
+        parent = ___is_parent:yes
+        (test = new Child).parent = parent
+        test.replaceWith {}
+        test.___parent.should.be.equal parent
+        test.replaceWith undefined
+        test.___parent.should.be.equal parent
+        test.replaceWith null
+        test.___parent.should.be.equal parent
+
+      it 'should not call "replaceChild()" if "child" is not "Child"', ->
+        pass = yes
+        (test = new Child).parent = ___is_parent:yes, replaceChild: -> pass = no
+        test.replaceWith {}
+        pass.should.be.ok
+        test.replaceWith undefined
+        pass.should.be.ok
+        test.replaceWith null
+        pass.should.be.ok
+
+      it 'should not set "___parent" to "null" if both children have same ___parent', ->
+        parent = ___is_parent:yes, replaceChild: -> pass = no
+        (child = new Child).parent = parent
+        (test = new Child).parent = parent
+        test.replaceWith child
+        test.___parent.should.not.be.null
+
+      it 'should not change "___parent" if both children have same ___parent', ->
+        parent = ___is_parent:yes, replaceChild: -> pass = no
+        (child = new Child).parent = parent
+        (test = new Child).parent = parent
+        test.replaceWith child
+        test.___parent.should.be.equal parent
+
+      it 'should not call "replaceChild() if both children have same ___parent', ->
+        pass = yes
+        parent = ___is_parent:yes, replaceChild: -> pass = no
+        (child = new Child).parent = parent
+        (test = new Child).parent = parent
+        test.replaceWith child
+        pass.should.be.ok
 
     describe '#remove()', ->
       it 'should return instance of "Child"', -> (child = new Child).remove().should.be.equal child
