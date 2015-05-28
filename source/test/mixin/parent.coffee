@@ -107,7 +107,7 @@ describe 'Parent', ->
         test.___children.length.should.be.equal 1
 
     describe '#firstChild()', ->
-      it 'should return null if there are no children', -> (test = new Parent).appendChild().should.be.null
+      it 'should return null if there are no children', -> should((new Parent).firstChild()).be.null
       it 'should return the "Child" instance', ->
         (test = new Parent)
           .appendChild first = ___is_child:yes
@@ -116,7 +116,7 @@ describe 'Parent', ->
           .should.be.equal first
 
     describe '#lastChild()', ->
-      it 'should return null if there are no children', -> (test = new Parent).appendChild().should.be.null
+      it 'should return null if there are no children', -> should((new Parent).lastChild()).be.null
       it 'should return the "Child" instance', ->
         (test = new Parent)
           .appendChild first = ___is_child:yes
