@@ -1,4 +1,4 @@
-### Parent ###
+### mixin.Parent ###
 
 module.exports = class Parent
 
@@ -6,14 +6,11 @@ module.exports = class Parent
 
     Object.defineProperties this,
 
-      children:
-        configurable:yes, enumerable:yes,
-        get: ->
-        set: ->
+      children: configurable:yes, enumerable:yes, get: -> @___children.slice()
 
-      ___children: configurable:yes, enumerable:yes, writable:no, value:[]
+      ___children: configurable:no, enumerable:no, writable:no, value:[]
 
-      ___is_parent: configurable:yes, enumerable:yes, writable:no, value:yes
+      ___is_parent: configurable:no, enumerable:no, writable:no, value:yes
 
   appendChild: -> throw new Error 'UNIMPLEMENTED'
 
@@ -34,6 +31,3 @@ module.exports = class Parent
   insertAfter: -> throw new Error 'UNIMPLEMENTED'
 
   hasChild: -> throw new Error 'UNIMPLEMENTED'
-
-  hasChildren: -> throw new Error 'UNIMPLEMENTED'
-
