@@ -8,3 +8,4 @@ module.exports =
   geometry : require './geometry/index'
   async    : require './async/index'
   webApi   : require './web-api/index'
+  coffee   : require './coffee/index'

@@ -11,4 +11,6 @@ describe 'nhz', ->
   it 'should have "browser" namespace', -> nhz.browser.should.be.an.instanceof Object
   it 'should have "geometry" namespace', -> nhz.geometry.should.be.an.instanceof Object
   it 'should have "async" namespace', -> nhz.async.should.be.an.instanceof Object
+  it 'should have "webApi" namespace', -> nhz.webApi.should.be.an.instanceof Object
+  it 'should have "coffee" namespace', -> nhz.coffee.should.be.an.instanceof Object
 
