@@ -160,21 +160,48 @@ describe 'Child', ->
       it 'should be configurable', -> (isConfigurable (new Child), 'previousSibling').should.be.equal yes
       it 'should be enumerable', -> (isEnumerable (new Child), 'previousSibling').should.be.equal yes
       it 'should have a getter', -> (getter (new Child), 'previousSibling').should.be.a.Function
-      it 'should have a setter', -> (setter (new Child), 'previousSibling').should.be.a.Function
+      it 'should not have a setter', -> should(setter (new Child), 'previousSibling').not.be.ok
 
       describe 'getter', ->
+        it 'should call previousChild() on ___parent', ->
+          pass = no
+          (child = new Child).parent = ___is_parent:yes, previousChild: -> pass = yes
+          child.previousSibling
+          pass.should.be.ok
 
-      describe 'setter', ->
+        it 'should pass itself as first argument to previousChild() of the ____parent', ->
+          pass = no
+          (child = new Child).parent = ___is_parent:yes, previousChild:(value) -> pass = (value is child)
+          test = child.previousSibling
+          pass.should.be.ok
+
+        it 'should return the result of the previousChild() call', ->
+          (child = new Child).parent = ___is_parent:yes, previousChild: -> 'pass'
+          child.previousSibling.should.be.equal 'pass'
 
     describe '#nextSibling', ->
       it 'should be configurable', -> (isConfigurable (new Child), 'nextSibling').should.be.equal yes
       it 'should be enumerable', -> (isEnumerable (new Child), 'nextSibling').should.be.equal yes
       it 'should have a getter', -> (getter (new Child), 'nextSibling').should.be.a.Function
-      it 'should have a setter', -> (setter (new Child), 'nextSibling').should.be.a.Function
+      it 'should not have a setter', -> should(setter (new Child), 'previousSibling').not.be.ok
 
       describe 'getter', ->
+        it 'should call nextChild() on ___parent', ->
+          pass = no
+          (child = new Child).parent = ___is_parent:yes, nextChild: -> pass = yes
+          child.previousSibling
+          pass.should.be.ok
 
-      describe 'setter', ->
+        it 'should pass itself as first argument to nextChild() of the ____parent', ->
+          pass = no
+          (child = new Child).parent = ___is_parent:yes, nextChild:(value) -> pass = (value is child)
+          test = child.previousSibling
+          pass.should.be.ok
+
+        it 'should return the result of the nextChild() call', ->
+          (child = new Child).parent = ___is_parent:yes, nextChild: -> 'pass'
+          child.previousSibling.should.be.equal 'pass'
+
 
     describe '#replaceWith(child)', ->
       it 'should return instance of "Child"', -> (child = new Child).replaceWith(new Child).should.be.equal child
