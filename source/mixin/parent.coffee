@@ -44,17 +44,22 @@ module.exports = class Parent
   insertBefore: (child, newChild) ->
     if @___children.length and child isnt newChild and child?.___is_child and newChild?.___is_child
       if -1 isnt idx = @___children.indexOf child
-        if -1 isnt _idx = @___children.indexOf newChild then @___children.splice _idx, 1
+        if -1 isnt _idx = @___children.indexOf newChild
+          @___children.splice _idx, 1
+          idx = @___children.indexOf child
+
         if idx is 0 then @___children.unshift newChild
         else
           children = @___children.splice 0, @___children.length
           @___children.concat children[...idx-1], [newChild], children[idx...]
     return this
 
-  insertAfter: ->
+  insertAfter: (child, newChild) ->
     if @___children.length and child isnt newChild and child?.___is_child and newChild?.___is_child
       if -1 isnt idx = @___children.indexOf child
-        if -1 isnt _idx = @___children.indexOf newChild then @___children.splice _idx, 1
+        if -1 isnt _idx = @___children.indexOf newChild
+          @___children.splice _idx, 1
+          idx = @___children.indexOf child
         if idx is @___children.length - 1 then @___children.push newChild
         else
           children = @___children.splice 0, @___children.length
@@ -64,4 +69,4 @@ module.exports = class Parent
   hasChild: (child) ->
     if @___children.length and child?___is_child and -1 isnt @___children.indexOf child
       return true
-    return fals
+    return false

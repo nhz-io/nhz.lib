@@ -164,34 +164,34 @@ describe 'Parent', ->
       it 'should return an instance of "Parent"', -> (test = new Parent).insertBefore().should.be.equal test
 
       it 'should do nothing if child is not "Child" (___is_child property is not "true")', ->
-        should(test = new Parent).nextChild({}).not.be.ok
+        (new Parent).insertBefore({}, ___is_child:yes).___children.length.should.be.equal 0
 
       it 'should do nothing if newChild is not "Child" (___is_child property is not "true")', ->
-        should(test = new Parent)
-          .appendChild child = __is_child:yes
+        (new Parent)
+          .appendChild child = ___is_child:yes
           .insertBefore child, {}
-          .___children.length.should.be.equal 0
+          .___children.length.should.be.equal 1
 
       it 'should do nothing if there are no children', ->
-        (test = new Parent)
-          .insertBefore {__is_child:yes}, {__is_child:yes}
+        (new Parent)
+          .insertBefore {___is_child:yes}, {___is_child:yes}
           .___children.length.should.be.equal 0
 
       it 'should do nothing if there is no "child"', ->
-        (test = new Parent)
-          .appendChild(___is_child:yes)
-          .insertBefore({__is_child:yes}, {__is_child:yes})
-          .___children.length.should.be.equal 0
+        (new Parent)
+          .appendChild ___is_child:yes
+          .insertBefore {___is_child:yes}, {___is_child:yes}
+          .___children.length.should.be.equal 1
 
       it 'should move the "newChild" before "child" if "newChild" exists', ->
-        (test = new Parent)
+        (new Parent)
           .appendChild child = ___is_child:yes
           .appendChild newChild = ___is_child:yes
           .insertBefore child, newChild
           .___children[0].should.be.equal newChild
 
       it 'should insert the "newChild" before "child"', ->
-        (test = new Parent)
+        (new Parent)
           .appendChild child = ___is_child:yes
           .insertBefore child, newChild = ___is_child:yes
           .___children[0].should.be.equal newChild
@@ -200,44 +200,47 @@ describe 'Parent', ->
       it 'should return an instance of "Parent"', -> (test = new Parent).insertAfter().should.be.equal test
 
       it 'should do nothing if child is not "Child" (___is_child property is not "true")', ->
-        should(test = new Parent).nextChild({}).not.be.ok
+        (new Parent)
+          .appendChild ___is_child:yes
+          .insertAfter {}, ___is_child:yes
+          .___children.length.should.be.equal 1
 
       it 'should do nothing if newChild is not "Child" (___is_child property is not "true")', ->
-        should(test = new Parent)
-          .appendChild child = __is_child:yes
+        (new Parent)
+          .appendChild child = ___is_child:yes
           .insertAfter child, {}
-          .___children.length.should.be.equal 0
+          .___children.length.should.be.equal 1
 
       it 'should do nothing if there are no children', ->
-        (test = new Parent)
-          .insertAfter {__is_child:yes}, {__is_child:yes}
+        (new Parent)
+          .insertAfter {___is_child:yes}, {___is_child:yes}
           .___children.length.should.be.equal 0
 
       it 'should do nothing if there is no "child"', ->
-        (test = new Parent)
-          .appendChild(___is_child:yes)
-          .insertAfter({__is_child:yes}, {__is_child:yes})
-          .___children.length.should.be.equal 0
+        (new Parent)
+          .appendChild ___is_child:yes
+          .insertAfter {___is_child:yes}, {___is_child:yes}
+          .___children.length.should.be.equal 1
 
       it 'should move the "newChild" after "child" if "newChild" exists', ->
-        (test = new Parent)
+        (new Parent)
           .appendChild newChild = ___is_child:yes
           .appendChild child = ___is_child:yes
           .insertAfter child, newChild
           .___children[1].should.be.equal newChild
 
       it 'should insert the "newChild" after "child"', ->
-        (test = new Parent)
+        (new Parent)
           .appendChild child = ___is_child:yes
           .insertAfter child, newChild = ___is_child:yes
           .___children[1].should.be.equal newChild
 
     describe '#hasChild(child)', ->
       it 'should return "null" if "child" is not "Child" (___is_child property is not "true")', ->
-        (test = new Parent).nextChild({}).should.be.null
+        should((new Parent).nextChild {}).be.null
 
       it 'should return "true" if "child" exists', ->
-        should(test = new Parent).appendChild(child = ___is_child:yes).hasChild(child).should.be.yes
+        (new Parent).appendChild(child = ___is_child:yes).hasChild(child).should.be.yes
 
       it 'should return "false" if "child" does not exist', ->
-        should(test = new Parent).appendChild(child = ___is_child:yes).removeChild(child).hasChild(child).should.be.no
+        (new Parent).appendChild(child = ___is_child:yes).removeChild(child).hasChild(child).should.be.no
