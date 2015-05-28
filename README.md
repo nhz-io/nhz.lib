@@ -88,6 +88,10 @@ LICENSE
 
 VERSION
 -------
+#### 0.0.13
+- Added web-api/node stub
+- Added coffee/gen-class-tests generator
+
 #### 0.0.12
 - Removed coffee/mixin in favor of [extends__][extends__-url]
 - Removed coffee/nil
