@@ -8,8 +8,8 @@ module.exports = class Child
 
       parent:
         configurable:yes, enumerable:yes,
-        get: ->
-        set: ->
+        get: -> @___parent
+        set: (value) -> @___parent = value
 
       previousSibling:
         configurable:yes, enumerable:yes
@@ -21,7 +21,7 @@ module.exports = class Child
         get: ->
         set: ->
 
-      ___is_child: configurable:no, enumerable:no, writable:yes, value:null
+      ___is_child: configurable:no, enumerable:no, writable:no, value:yes
 
       ___parent: configurable:no, enumerable:no, writable:yes, value:null
 
