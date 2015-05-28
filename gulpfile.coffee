@@ -42,9 +42,10 @@ $.gulp.task 'coffee', [ 'clean', 'lint'], ->
     .pipe $.gulp.dest _.build
 
 $.gulp.task 'test', [ 'build' ], ->
-  $.gulp
-    .src [ "#{_.test}/**/*.js" ], read: false
-    .pipe $.test reporter: 'tap'
+  unless _.notest
+    $.gulp
+      .src [ "#{_.test}/**/*.js" ], read: false
+      .pipe $.test reporter: 'tap'
 
 $.gulp.task 'dist', [ 'build', 'test' ], ->
   $.gulp
