@@ -28,7 +28,7 @@
     "build": "./build",
     "dist": "./dist",
     "test": "./build/test",
-    "notest": true
+    "notest": false
   },
   "dependencies": {
     "extends__": "^0.0.8"
