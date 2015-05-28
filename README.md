@@ -88,7 +88,7 @@ LICENSE
 
 VERSION
 -------
-#### 0.0.11
+#### 0.0.12
 - Removed coffee/mixin in favor of [extends__][extends__-url]
 - Removed coffee/nil
 
