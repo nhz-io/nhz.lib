@@ -31,6 +31,84 @@ copy = require 'nhz.lib/dist/object/copy'
 copy a:'1', b:'2', c:'3'
 ```
 
+### nhz.lib/property/descriptor
+Returns object property's `descriptor` ([Object.getOwnPropertyDescriptor()][Object.getOwnPropertyDescriptor-url])
+```coffeescript
+descriptor = require 'nhz.lib/dist/property/descriptor'
+descriptor {foo:1}, 'foo'
+```
+
+Updates object property's `descriptor` ([Object.defineProperty()][Object.defineProperty-url])
+```coffeescript
+descriptor = require 'nhz.lib/dist/property/descriptor'
+descriptor {foo:1}, 'foo', writable:no
+```
+
+### nhz.lib/property/getter
+Returns object property's `getter`
+```coffeescript
+getter = require 'nhz.lib/dist/property/getter'
+getter {foo:1}, 'foo'
+```
+
+Updates object property's `getter`
+```coffeescript
+getter = require 'nhz.lib/dist/property/descrgetteriptor'
+getter {foo:1}, 'foo', -> 'bar'
+```
+
+### nhz.lib/property/setter
+Returns object property's `setter`
+```coffeescript
+setter = require 'nhz.lib/dist/property/setter'
+setter {foo:1}, 'foo'
+```
+
+Updates object property's `setter`
+```coffeescript
+setter = require 'nhz.lib/dist/property/descrgetteriptor'
+setter {foo:1}, 'foo', ->
+```
+
+### nhz.lib/property/is-writable
+Returns object property's `writable` flag
+```coffeescript
+isWritable = require 'nhz.lib/dist/property/setter'
+isWritable {foo:1}, 'foo'
+```
+
+Updates object property's `writable` flag
+```coffeescript
+isWritable = require 'nhz.lib/dist/property/descrgetteriptor'
+isWritable {foo:1}, 'foo', no
+```
+
+### nhz.lib/property/is-enumerable
+Returns object property's `enumerable` flag
+```coffeescript
+isEnumerable = require 'nhz.lib/dist/property/setter'
+isEnumerable {foo:1}, 'foo'
+```
+
+Updates object property's `enumerable` flag
+```coffeescript
+isEnumerable = require 'nhz.lib/dist/property/descrgetteriptor'
+isEnumerable {foo:1}, 'foo', no
+```
+
+### nhz.lib/property/is-configurable
+Returns object property's `configurable` flag
+```coffeescript
+isConfigurable = require 'nhz.lib/dist/property/setter'
+isConfigurable {foo:1}, 'foo'
+```
+
+Updates object property's `configurable` flag
+```coffeescript
+isConfigurable = require 'nhz.lib/dist/property/descrgetteriptor'
+isConfigurable {foo:1}, 'foo', no
+```
+
 ### nhz.lib/browser/next-animation-frame
 Callbacks for the next animation frame. Chainable with `.this(callbacks...)`.
 Chained callbacks will be called upcoming frames. One group per frame!
@@ -88,6 +166,14 @@ LICENSE
 
 VERSION
 -------
+#### 0.0.15
+- Added property/descriptor
+- Added property/getter
+- Added property/setter
+- Added property/isConfigurable
+- Added property/isEnumerable
+- Added property/isWritable
+
 #### 0.0.14
 - Added bin/gen-class-tests
 
@@ -143,3 +229,5 @@ VERSION
 [npm-image]: https://nodei.co/npm/nhz.lib.png
 [npm-url]: https://nodei.co/npm/nhz.lib
 [extends__-url]: https://github.com/nhz-io/extends__
+[Object.getOwnPropertyDescriptor-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor
+[Object.defineProperty-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
