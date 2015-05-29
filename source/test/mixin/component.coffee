@@ -61,3 +61,46 @@ describe 'Component', ->
       it 'should not be enumerable', -> (isEnumerable (new Component), '___is_component').should.be.equal no
       it 'should not be writable', -> (isWritable (new Component), '___is_component').should.be.equal no
 
+    describe '#appendChild(newChild)', ->
+      it 'should do nothing if "newChild" is not "Component" (___is_component is not "true")', ->
+        (new Component).appendChild({}).children.length.should.be.equal 0
+
+    describe '#removeChild(child)', ->
+      it 'should do nothing if "newChild" is not "Component" (___is_component is not "true")', ->
+        (new Component).appendChild(new Component).removeChild({}).children.length.should.be.equal 1
+
+    describe '#replaceChild(child, withChild)', ->
+      it 'should do nothing if "child" or "withChild" is not "Component" (___is_component is not "true")', ->
+        (new Component)
+          .appendChild(child = new Component)
+          .replaceChild(child, {})
+          .children[0].should.be.equal child
+
+    describe '#nextChild(child)', ->
+      it 'should return null if "child" is not "Component" (___is_component is not "true")', ->
+        should((new Component).appendChild(new Component).nextChild {}).be.null
+
+    describe '#previousChild(child)', ->
+      it 'should return null if "child" is not "Component" (___is_component is not "true")', ->
+        should((new Component).appendChild(new Component).previousChild {}).be.null
+
+    describe '#insertBefore(child, newChild)', ->
+      it 'should do nothing if "child" or "newChild" is not "Component" (___is_component is not "true")', ->
+        (new Component)
+          .appendChild(child = new Component)
+          .insertBefore(child, {})
+          .children[0].should.be.equal child
+
+    describe '#insertAfter(child, newChild)', ->
+      it 'should do nothing if "child" or "newChild" is not "Component" (___is_component is not "true")', ->
+        (new Component)
+          .appendChild(child = new Component)
+          .insertAfter(child, {})
+          .children.length.should.be.equal 1
+
+    describe '#hasChild(child)', ->
+      it 'should return "null" if "child" is not "Component" (___is_component property is not "true")', ->
+        should((new Component).appendChild(new Component).hasChild {}).be.null
+
+    describe '#dispatchEvent(event)', ->
+      it 'should return own "Component" instance', -> (test = new Component).dispatchEvent().should.be.equal test
