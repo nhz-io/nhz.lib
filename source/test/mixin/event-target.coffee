@@ -246,13 +246,22 @@ describe 'EventTarget', ->
           .dispatchEvent ___is_event:yes, type:'test', phase:Event.BUBBLING_PHASE
         pass.should.be.ok
 
-      it 'should call all listeners for the "event.type" and "event.phase"', ->
+      it 'should call all capture phase listeners if event.target is not this EventTarget instance', ->
+        count = 0
+        (new EventTarget)
+          .addEventListener 'test', -> throw new Error 'Should not call BUBBLING_PHASE listeners'
+          .addEventListener 'test', (-> count++), Event.CAPTURING_PHASE
+          .addEventListener 'test', (-> count++), Event.CAPTURING_PHASE
+          .dispatchEvent ___is_event:yes, type:'test'
+        count.should.be.equal 2
+
+      ###it 'should call all listeners for the "event.type" and "event.phase"', ->
         count = 0
         (new EventTarget)
           .addEventListener 'test', -> count++
           .addEventListener 'test', -> count++
           .dispatchEvent ___is_event:yes, type:'test', phase:Event.BUBBLING_PHASE
-        count.should.be.equal 2
+        count.should.be.equal 2###
 
       it 'should pass the "event" to the listeners', ->
         event = ___is_event:yes, type:'test', phase:Event.BUBBLING_PHASE

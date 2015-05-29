@@ -30,10 +30,13 @@ module.exports = class EventTarget extends require './base'
     return this
 
   dispatchEvent: (event) ->
-    if event?.___is_event and (type = event.type) and (phase = event.phase)
-      if phase is Event.BUBBLING_PHASE or phase is Event.CAPTURING_PHASE
-        if listeners = @___listeners[phase]?[type]
-          for listener in listeners
-            break if event.stopped or event.stoppedImmediate
-            listener.call this, event
+    if event?.___is_event and (type = event.type)
+      if event.target is this
+        phase = event.___phase = Event.BUBBLING_PHASE
+      else
+        unless phase = event.phase then phase = event.___phase = Event.CAPTURING_PHASE
+      if listeners = @___listeners[phase]?[type]
+        for listener in listeners
+          break if event.stopped or event.stoppedImmediate
+          listener.call this, event
     return this
