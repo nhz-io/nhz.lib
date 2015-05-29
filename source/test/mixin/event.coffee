@@ -164,11 +164,25 @@ describe 'Event', ->
       it 'should be enumerable', -> (isEnumerable (new Event), 'target').should.be.equal yes
       it 'should not be writable', -> (isWritable (new Event), 'target').should.be.equal no
       it 'should have a getter', -> (getter (new Event), 'target').should.be.a.Function
-      it 'should not have a setter', -> should(setter (new Event), 'target').not.be.ok
+      it 'should have a setter', -> (setter (new Event), 'target').should.be.a.Function
 
       describe 'getter', -> it 'should return the value of "___target"', ->
         (event = new Event).___target = 'test'
         event.target.should.be.equal event.___target
+
+      describe 'setter', ->
+        it 'should set the "___target" if "value" is "EventTarget" (___is_event_target is "true)', ->
+          (event = new Event).target = (target = ___is_event_target:yes)
+          event.___target.should.be.equal target
+
+        it 'should not set the "___target" if "value" is not "EventTarget" (___is_event_target is not "true")', ->
+          (event = new Event).target = {}
+          should(event.___target).be.no.ok
+
+        it 'should set the "___target" only once', ->
+          (event = new Event).target = (target = ___is_event_target:yes)
+          event.target = ___is_event_target:yes
+          event.___target.should.be.equal target
 
     describe '#phase', ->
       it 'should be configurable', -> (isConfigurable (new Event), 'phase').should.be.equal yes
