@@ -33,6 +33,16 @@ module.exports = class Component extends [ Base, Child, Parent, EventSource, Eve
 
   hasChild: (child) -> if child?.___is_component then super else null
 
+  dispatchEvent: (event) ->
+    if event?.___is_event
+      super
+      unless event.target is this or event.stopped
+        for child in @children
+          child?.dispatchEvent? event
+          break if event.stopped or event.phase is Event.BUBBLING_PHASE
+        super event if (not event.stopped) and event.phase is Event.BUBBLING_PHASE
+    return this
+
   emitEvent: (event, target = this) ->
     if target?.___is_component then super
     return this
