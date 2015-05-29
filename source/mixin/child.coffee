@@ -45,5 +45,9 @@ module.exports = class Child
         parent.replaceChild? this, child
     return this
 
-  remove: -> throw new Error 'UNIMPLEMENTED'
+  remove: ->
+    if parent = @___parent
+      @___parent = null
+      parent.removeChild? this
+    return this
 

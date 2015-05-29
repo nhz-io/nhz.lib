@@ -291,8 +291,14 @@ describe 'Child', ->
         child.remove()
         pass.should.be.ok
 
+      it 'should pass itselfs as first "removeChild()" argument', ->
+        result = 'fail'
+        (child = new Child).___parent = ___is_parent:yes, removeChild: -> result = arguments[0]
+        child.remove()
+        result.should.be.equal child
+
       it 'should set "___parent" to "null" before calling "removeChild()"', ->
         pass = no
-        (child = new Child).___parent = ___is_parent:yes, removeChild: -> pass = (child is null)
+        (child = new Child).___parent = ___is_parent:yes, removeChild: (child) -> pass = (child.___parent is null)
         child.remove()
         pass.should.be.ok
