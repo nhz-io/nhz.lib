@@ -173,6 +173,8 @@ VERSION
 - Added property/isConfigurable
 - Added property/isEnumerable
 - Added property/isWritable
+- Added mixin/Parent
+- Added mixin/Child
 
 #### 0.0.14
 - Added bin/gen-class-tests
