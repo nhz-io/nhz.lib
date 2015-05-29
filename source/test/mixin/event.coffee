@@ -212,4 +212,4 @@ describe 'Event', ->
 
     describe '#stopImmediate()', ->
       it 'should return Event instance (itself)', -> (test = new Event 'test').stopImmediate().should.be.equal test
-      it 'should set "___stoppedImmediate" to "true"', -> (new Event).stopImmediate().___stopped_immediate.should.be.equal yes
+      it 'should set "___stopped_immediate" to "true"', -> (new Event).stopImmediate().___stopped_immediate.should.be.equal yes
