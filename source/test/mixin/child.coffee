@@ -281,9 +281,18 @@ describe 'Child', ->
     describe '#remove()', ->
       it 'should return instance of "Child"', -> (child = new Child).remove().should.be.equal child
 
-      it 'should remove itself from the parent', ->
-        (child = new Child).parent = (parent = new Parent)
-        child.remove()
-        parent.children.length.should.be.equal 0
-        should(child.parent).be.null
+      it 'should set "___parent" to "null"', ->
+        (child = new Child).___parent = ___is_parent:yes
+        should(child.remove().___parent).be.null
 
+      it 'should call "removeChild()" of the "___parent"', ->
+        pass = no
+        (child = new Child).___parent = ___is_parent:yes, removeChild: -> pass = yes
+        child.remove()
+        pass.should.be.ok
+
+      it 'should set "___parent" to "null" before calling "removeChild()"', ->
+        pass = no
+        (child = new Child).___parent = ___is_parent:yes, removeChild: -> pass = (child is null)
+        child.remove()
+        pass.should.be.ok
