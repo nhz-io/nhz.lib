@@ -31,6 +31,6 @@
     "notest": false
   },
   "dependencies": {
-    "extends__": "^0.0.8"
+    "extends__": "0.0.8"
   }
 }
