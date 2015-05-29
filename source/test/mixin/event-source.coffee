@@ -65,5 +65,7 @@ describe 'EventSource', ->
 
       it 'should not call the event callback if event was canceled', ->
         pass = yes
-        (new EventSource).emitEvent (___is_event:yes, callback: -> pass = no), ___is_event_target:yes, dispatchEvent: (e) -> e.cancel()
+        (new EventSource)
+          .emitEvent (___is_event:yes, cancel: (-> @canceled = yes), callback: -> pass = no),
+            ___is_event_target:yes, dispatchEvent: (e) -> e.cancel()
         pass.should.be.ok
