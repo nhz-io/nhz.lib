@@ -168,6 +168,8 @@ VERSION
 -------
 #### 0.0.17
 - Added mixin/base
+- Added mixin/component
+- mixin/* all extend mixin/Base
 
 #### 0.0.16
 - Removed web-api/*
