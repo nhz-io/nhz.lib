@@ -177,7 +177,7 @@ describe 'Event', ->
 
         it 'should not set the "___target" if "value" is not "EventTarget" (___is_event_target is not "true")', ->
           (event = new Event).target = {}
-          should(event.___target).be.no.ok
+          should(event.___target).not.be.ok
 
         it 'should set the "___target" only once', ->
           (event = new Event).target = (target = ___is_event_target:yes)

@@ -40,7 +40,10 @@ module.exports = class Event extends require './base'
 
       source: configurable:yes, enumerable:yes, get: => @___source
 
-      target: configurable:yes, enumerable:yes, get: => @___target
+      target:
+        configurable:yes, enumerable:yes
+        get: => @___target
+        set: (value) -> if (not @___target) and value?.___is_event_target then @___target = value
 
       phase: configurable:yes, enumerable:yes, get: => @___phase
 
