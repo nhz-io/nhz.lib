@@ -39,6 +39,10 @@ describe 'Event', ->
 
     it 'should have "___stopped_immediate" property', -> (new Event).should.have.property '___stopped_immediate'
 
+    it 'should have "___callback" property', -> (new Event).should.have.property '___callback'
+
+    it 'should have "callback" property', -> (new Event).should.have.property 'callback'
+
     it 'should have "type" property', -> (new Event).should.have.property 'type'
 
     it 'should have "timestamp" property', -> (new Event).should.have.property 'timestamp'
@@ -113,6 +117,11 @@ describe 'Event', ->
 
     describe '#___stopped_immediate', ->
       it 'should be an "Boolean"', -> (new Event).___stopped_immediate.should.be.a.Boolean
+      it 'should not be configurable', -> (isConfigurable (new Event), '___stopped_immediate').should.be.equal no
+      it 'should not be enumerable', -> (isEnumerable (new Event), '___stopped_immediate').should.be.equal no
+      it 'should be writable', -> (isWritable (new Event), '___stopped_immediate').should.be.equal yes
+
+    describe '#___callback', ->
       it 'should not be configurable', -> (isConfigurable (new Event), '___stopped_immediate').should.be.equal no
       it 'should not be enumerable', -> (isEnumerable (new Event), '___stopped_immediate').should.be.equal no
       it 'should be writable', -> (isWritable (new Event), '___stopped_immediate').should.be.equal yes
@@ -204,6 +213,35 @@ describe 'Event', ->
       describe 'getter', -> it 'should return the value of "___stopped_immediate"', ->
         (event = new Event).___stopped_immediate = 'test'
         event.stoppedImmediate.should.be.equal event.___stopped_immediate
+
+    describe '#callback', ->
+      it 'should be configurable', -> (isConfigurable (new Event), 'callback').should.be.equal yes
+      it 'should be enumerable', -> (isEnumerable (new Event), 'callback').should.be.equal yes
+      it 'should not be writable', -> (isWritable (new Event), 'callback').should.be.equal no
+      it 'should have a getter', -> (getter (new Event), 'callback').should.be.a.Function
+      it 'should have a setter', -> (setter (new Event), 'callback').should.be.a.Function
+
+      describe 'getter', -> it 'should return the value of "___callback"', ->
+        (event = new Event).___callback = 'test'
+        event.target.should.be.equal event.___callback
+
+      describe 'setter', ->
+        it 'should return the value of "___callback"', ->
+          (event = new Event).___callback = 'test'
+          (event.callback = null).should.be.equal event.___callback
+
+        it 'should not set the "callback" if it is not a Function', -> should((new Event).callback = 'test').not.be.ok
+
+        it 'should set the value of "___callback"', ->
+          callback = ->
+          (event = new Event).callback = callback
+          event.___callback.should.be.equal callback
+
+        it 'should set the value of "___callback" only once', ->
+          callback = ->
+          (event = new Event).callback = callback
+          event.callback = (->)
+          event.___callback.should.be.equal callback
 
     describe '#cancel()', ->
       it 'should return Event instance (itself)', -> (test = new Event 'test').cancel().should.be.equal test
