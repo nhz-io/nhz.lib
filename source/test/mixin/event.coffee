@@ -153,11 +153,25 @@ describe 'Event', ->
       it 'should be enumerable', -> (isEnumerable (new Event), 'source').should.be.equal yes
       it 'should not be writable', -> (isWritable (new Event), 'source').should.be.equal no
       it 'should have a getter', -> (getter (new Event), 'source').should.be.a.Function
-      it 'should not have a setter', -> should(setter (new Event), 'source').not.be.ok
+      it 'should have a setter', -> (setter (new Event), 'source').should.be.a.Function
 
       describe 'getter', -> it 'should return the value of "___source"', ->
         (event = new Event).___source = 'test'
         event.source.should.be.equal event.___source
+
+      describe 'setter', ->
+        it 'should set the "___source" if "value" is "EventSource" (___is_event_source is "true)', ->
+          (event = new Event).source = (source = ___is_event_source:yes)
+          event.___source.should.be.equal source
+
+        it 'should not set the "___source" if "value" is not "EventSource" (___is_event_source is not "true")', ->
+          (event = new Event).source = {}
+          should(event.___source).not.be.ok
+
+        it 'should set the "___source" only once', ->
+          (event = new Event).source = (source = ___is_event_source:yes)
+          event.source = ___is_event_source:yes
+          event.___source.should.be.equal source
 
     describe '#target', ->
       it 'should be configurable', -> (isConfigurable (new Event), 'target').should.be.equal yes
