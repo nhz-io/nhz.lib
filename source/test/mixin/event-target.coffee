@@ -3,8 +3,11 @@
 should = require 'should'
 Event = require '../../mixin/event'
 EventTarget = require '../../mixin/event-target'
-
-should = require 'should'
+isConfigurable = require '../../property/is-configurable'
+isEnumerable = require '../../property/is-enumerable'
+isWritable = require '../../property/is-writable'
+getter = require '../../property/getter'
+setter = require '../../property/setter'
 
 describe 'EventTarget', ->
   it 'should be a class', ->
@@ -34,13 +37,13 @@ describe 'EventTarget', ->
       it 'should not be writable', -> (isWritable (new EventTarget), '___is_event_target').should.be.equal no
 
     describe '#___listeners', ->
-      it 'should be an array', -> (new EventTarget).___listeners.should.be.an.Array
+      it 'should be an array', -> (new EventTarget).___listeners.should.be.an.Object
       it 'should not be configurable', -> (isConfigurable (new EventTarget), '___listeners').should.be.equal no
       it 'should not be enumerable', -> (isEnumerable (new EventTarget), '___listeners').should.be.equal no
       it 'should not be writable', -> (isWritable (new EventTarget), '___listeners').should.be.equal no
 
     describe '#addEventListener(type, listener, phase = Event.BUBBLING_PHASE)', ->
-      it 'should return itself', -> (test = new Parent).removeChild().should.be.equal test
+      it 'should return own "EventTarget" instance', -> (test = new EventTarget).addEventListener().should.be.equal test
 
       it 'should add "listener" to default phase (Event.BUBBLING_PHASE)', ->
 
@@ -71,7 +74,7 @@ describe 'EventTarget', ->
       it 'should do nothing when "listener" is "undefined"', ->
 
     describe '#removeEventListener(type, listener, phase = Event.BUBBLING_PHASE)', ->
-      it 'should return itself', -> (test = new Parent).removeChild().should.be.equal test
+      it 'should return own "EventTarget" instance', -> (test = new EventTarget).removeEventListener().should.be.equal test
 
       it 'should remove the "listener" from default phase (Event.BUBBLING_PHASE)', ->
 
@@ -98,7 +101,7 @@ describe 'EventTarget', ->
       it 'should do nothing when "listener" is "undefined"', ->
 
     describe '#dispatchEvent(event)', ->
-      it 'should return itself', -> (test = new Parent).removeChild().should.be.equal test
+      it 'should return own instance', -> (test = new EventTarget).dispatchEvent().should.be.equal test
 
       it 'should do nothing when "event.phase" is not Event.BUBBLING_PHASE or Event.CAPTURING_PHASE', ->
 

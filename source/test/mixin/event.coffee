@@ -2,6 +2,11 @@
 
 should = require 'should'
 Event = require '../../mixin/event'
+isConfigurable = require '../../property/is-configurable'
+isEnumerable = require '../../property/is-enumerable'
+isWritable = require '../../property/is-writable'
+getter = require '../../property/getter'
+setter = require '../../property/setter'
 
 describe 'Event', ->
   it 'should be a class', ->
@@ -15,6 +20,10 @@ describe 'Event', ->
 
     it 'should have "___is_event" property', -> (new Event).should.have.property '___is_event'
 
+    it 'should have "___type" property', -> (new Event).should.have.property '___type'
+
+    it 'should have "___timestamp" property', -> (new Event).should.have.property '___timestamp'
+
     it 'should have "___source" property', -> (new Event).should.have.property '___source'
 
     it 'should have "___target" property', -> (new Event).should.have.property '___target'
@@ -26,6 +35,10 @@ describe 'Event', ->
     it 'should have "___stopped" property', -> (new Event).should.have.property '___stopped'
 
     it 'should have "___stopped_immediate" property', -> (new Event).should.have.property '___stopped_immediate'
+
+    it 'should have "type" property', -> (new Event).should.have.property 'type'
+
+    it 'should have "timestamp" property', -> (new Event).should.have.property 'timestamp'
 
     it 'should have "source" property', -> (new Event).should.have.property 'source'
 
@@ -46,10 +59,27 @@ describe 'Event', ->
     it 'should have "stopImmediate()" method', -> (new Event).stopImmediate.should.be.a.Function
 
     describe '#___is_event', ->
-      it 'should be boolean', -> (new Event).___is_event.should.be.a.Boolean
+      it 'should be "Boolean"', -> (new Event).___is_event.should.be.a.Boolean
+      it 'should be "true"', -> (new Event).___is_event.should.be.equal yes
       it 'should not be configurable', -> (isConfigurable (new Event), '___is_event').should.be.equal no
       it 'should not be enumerable', -> (isEnumerable (new Event), '___is_event').should.be.equal no
       it 'should not be writable', -> (isWritable (new Event), '___is_event').should.be.equal no
+
+    describe '#___type', ->
+      it 'should be "String"', -> (new Event).___type.should.be.a.String
+      it 'should not be empty"', -> (new Event).___type.should.not.be.equal ''
+      it 'should be default type (event)"', -> (new Event).___type.should.be.equal 'event'
+      it 'should be provide type (with new Event(type))"', -> (new Event 'test').___type.should.be.equal 'test'
+      it 'should not be configurable', -> (isConfigurable (new Event), '___type').should.be.equal no
+      it 'should not be enumerable', -> (isEnumerable (new Event), '___type').should.be.equal no
+      it 'should be writable', -> (isWritable (new Event), '___type').should.be.equal yes
+
+    describe '#___timestamp', ->
+      it 'should be "Number"', -> (new Event).___timestamp.should.be.a.Number
+      it 'should not be configurable', -> (isConfigurable (new Event), '___timestamp').should.be.equal no
+      it 'should not be enumerable', -> (isEnumerable (new Event), '___timestamp').should.be.equal no
+      it 'should be writable', -> (isWritable (new Event), '___timestamp').should.be.equal yes
+      it 'should be greater than 0', -> should((new Event).___timestamp > 0).be.ok
 
     describe '#___source', ->
       it 'should not be configurable', -> (isConfigurable (new Event), '___source').should.be.equal no
@@ -67,29 +97,51 @@ describe 'Event', ->
       it 'should be writable', -> (isWritable (new Event), '___phase').should.be.equal yes
 
     describe '#___canceled', ->
-      it 'should be an array', -> (new Event).___canceled.should.be.a.Boolean
+      it 'should be an "Boolean"', -> (new Event).___canceled.should.be.a.Boolean
       it 'should not be configurable', -> (isConfigurable (new Event), '___canceled').should.be.equal no
       it 'should not be enumerable', -> (isEnumerable (new Event), '___canceled').should.be.equal no
       it 'should be writable', -> (isWritable (new Event), '___canceled').should.be.equal yes
 
     describe '#___stopped', ->
-      it 'should be an array', -> (new Event).___stopped.should.be.a.Boolean
+      it 'should be an "Boolean"', -> (new Event).___stopped.should.be.a.Boolean
       it 'should not be configurable', -> (isConfigurable (new Event), '___stopped').should.be.equal no
       it 'should not be enumerable', -> (isEnumerable (new Event), '___stopped').should.be.equal no
       it 'should be writable', -> (isWritable (new Event), '___stopped').should.be.equal yes
 
     describe '#___stopped_immediate', ->
-      it 'should be an array', -> (new Event).___stopped_immediate.should.be.a.Boolean
+      it 'should be an "Boolean"', -> (new Event).___stopped_immediate.should.be.a.Boolean
       it 'should not be configurable', -> (isConfigurable (new Event), '___stopped_immediate').should.be.equal no
       it 'should not be enumerable', -> (isEnumerable (new Event), '___stopped_immediate').should.be.equal no
       it 'should be writable', -> (isWritable (new Event), '___stopped_immediate').should.be.equal yes
+
+    describe '#type', ->
+      it 'should be configurable', -> (isConfigurable (new Event), 'type').should.be.equal yes
+      it 'should be enumerable', -> (isEnumerable (new Event), 'type').should.be.equal yes
+      it 'should not be writable', -> (isWritable (new Event), 'type').should.be.equal no
+      it 'should have a getter', -> (getter (new Event), 'type').should.be.a.Function
+      it 'should not have a setter', -> should(setter (new Event), 'type').not.be.ok
+
+      describe 'getter', -> it 'should return the value of "___type"', ->
+        (event = new Event).___type = 'test'
+        event.type.should.be.equal event.___type
+
+    describe '#timestamp', ->
+      it 'should be configurable', -> (isConfigurable (new Event), 'timestamp').should.be.equal yes
+      it 'should be enumerable', -> (isEnumerable (new Event), 'timestamp').should.be.equal yes
+      it 'should not be writable', -> (isWritable (new Event), 'timestamp').should.be.equal no
+      it 'should have a getter', -> (getter (new Event), 'timestamp').should.be.a.Function
+      it 'should not have a setter', -> should(setter (new Event), 'timestamp').not.be.ok
+
+      describe 'getter', -> it 'should return the value of "___timestamp"', ->
+        event = new Event
+        event.timestamp.should.be.equal event.___timestamp
 
     describe '#source', ->
       it 'should be configurable', -> (isConfigurable (new Event), 'source').should.be.equal yes
       it 'should be enumerable', -> (isEnumerable (new Event), 'source').should.be.equal yes
       it 'should not be writable', -> (isWritable (new Event), 'source').should.be.equal no
       it 'should have a getter', -> (getter (new Event), 'source').should.be.a.Function
-      it 'should not have a setter', -> should(setter (new Event), 'source').be.null
+      it 'should not have a setter', -> should(setter (new Event), 'source').not.be.ok
 
       describe 'getter', -> it 'should return the value of "___source"', ->
         (event = new Event).___source = 'test'
@@ -100,7 +152,7 @@ describe 'Event', ->
       it 'should be enumerable', -> (isEnumerable (new Event), 'target').should.be.equal yes
       it 'should not be writable', -> (isWritable (new Event), 'target').should.be.equal no
       it 'should have a getter', -> (getter (new Event), 'target').should.be.a.Function
-      it 'should not have a setter', -> should(setter (new Event), 'target').be.null
+      it 'should not have a setter', -> should(setter (new Event), 'target').not.be.ok
 
       describe 'getter', -> it 'should return the value of "___target"', ->
         (event = new Event).___target = 'test'
@@ -111,7 +163,7 @@ describe 'Event', ->
       it 'should be enumerable', -> (isEnumerable (new Event), 'phase').should.be.equal yes
       it 'should not be writable', -> (isWritable (new Event), 'phase').should.be.equal no
       it 'should have a getter', -> (getter (new Event), 'phase').should.be.a.Function
-      it 'should not have a setter', -> should(setter (new Event), 'phase').be.null
+      it 'should not have a setter', -> should(setter (new Event), 'phase').not.be.ok
 
       describe 'getter', -> it 'should return the value of "___phase"', ->
         (event = new Event).___phase = 'test'
@@ -122,7 +174,7 @@ describe 'Event', ->
       it 'should be enumerable', -> (isEnumerable (new Event), 'canceled').should.be.equal yes
       it 'should not be writable', -> (isWritable (new Event), 'canceled').should.be.equal no
       it 'should have a getter', -> (getter (new Event), 'canceled').should.be.a.Function
-      it 'should not have a setter', -> should(setter (new Event), 'canceled').be.null
+      it 'should not have a setter', -> should(setter (new Event), 'canceled').not.be.ok
 
       describe 'getter', -> it 'should return the value of "___canceled"', ->
         (event = new Event).___canceled = 'test'
@@ -133,7 +185,7 @@ describe 'Event', ->
       it 'should be enumerable', -> (isEnumerable (new Event), 'stopped').should.be.equal yes
       it 'should not be writable', -> (isWritable (new Event), 'stopped').should.be.equal no
       it 'should have a getter', -> (getter (new Event), 'stopped').should.be.a.Function
-      it 'should not have a setter', -> should(setter (new Event), 'stopped').be.null
+      it 'should not have a setter', -> should(setter (new Event), 'stopped').not.be.ok
 
       describe 'getter', -> it 'should return the value of "___stopped"', ->
         (event = new Event).___stopped = 'test'
@@ -144,7 +196,7 @@ describe 'Event', ->
       it 'should be enumerable', -> (isEnumerable (new Event), 'stoppedImmediate').should.be.equal yes
       it 'should not be writable', -> (isWritable (new Event), 'stoppedImmediate').should.be.equal no
       it 'should have a getter', -> (getter (new Event), 'stoppedImmediate').should.be.a.Function
-      it 'should not have a setter', -> should(setter (new Event), 'stoppedImmediate').be.null
+      it 'should not have a setter', -> should(setter (new Event), 'stoppedImmediate').not.be.ok
 
       describe 'getter', -> it 'should return the value of "___stopped_immediate"', ->
         (event = new Event).___stopped_immediate = 'test'
@@ -152,12 +204,12 @@ describe 'Event', ->
 
     describe '#cancel()', ->
       it 'should return Event instance (itself)', -> (test = new Event 'test').cancel().should.be.equal test
-      it 'should set "___canceled" to "true"', -> (ne Event).cancel().___canceled.should.be.equal yes
+      it 'should set "___canceled" to "true"', -> (new Event).cancel().___canceled.should.be.equal yes
 
     describe '#stop()', ->
       it 'should return Event instance (itself)', -> (test = new Event 'test').stop().should.be.equal test
-      it 'should set "___stopped" to "true"', -> (ne Event).cancel().___stopped.should.be.equal yes
+      it 'should set "___stopped" to "true"', -> (new Event).stop().___stopped.should.be.equal yes
 
     describe '#stopImmediate()', ->
       it 'should return Event instance (itself)', -> (test = new Event 'test').stopImmediate().should.be.equal test
-      it 'should set "___stoppedImmediate" to "true"', -> (ne Event).cancel().___stoppedImmediate.should.be.equal yes
+      it 'should set "___stoppedImmediate" to "true"', -> (new Event).stopImmediate().___stopped_immediate.should.be.equal yes

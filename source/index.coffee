@@ -7,7 +7,6 @@ module.exports =
   browser  : require './browser/index'
   geometry : require './geometry/index'
   async    : require './async/index'
-  webApi   : require './web-api/index'
   coffee   : require './coffee/index'
   property : require './property/index'
   mixin    : require './mixin/index'

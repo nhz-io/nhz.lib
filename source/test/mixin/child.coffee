@@ -204,7 +204,7 @@ describe 'Child', ->
 
 
     describe '#replaceWith(child)', ->
-      it 'should return itself', -> (child = new Child).replaceWith(new Child).should.be.equal child
+      it 'should return own instance', -> (child = new Child).replaceWith(new Child).should.be.equal child
 
       it 'should call "replaceChild()" of the ___parent', ->
         pass = no

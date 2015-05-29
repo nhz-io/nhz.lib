@@ -2,6 +2,11 @@
 
 should = require 'should'
 EventSource = require '../../mixin/event-source'
+isConfigurable = require '../../property/is-configurable'
+isEnumerable = require '../../property/is-enumerable'
+isWritable = require '../../property/is-writable'
+getter = require '../../property/getter'
+setter = require '../../property/setter'
 
 describe 'EventSource', ->
   it 'should be a class', ->

@@ -1,51 +1,62 @@
-Stub = require './web-api-stub'
+### mixin.Event ###
 
-module.exports = class Event extends (window?.Event or Stub)
+module.exports = class Event
   Object.defineProperties Event,
-    NONE            : configurable:no, writable:no, value:0
-    CAPTURING_PHASE : configurable:no, writable:no, value:1
-    AT_TARGET       : configurable:no, writable:no, value:2
-    BUBBLING_PHASE  : configurable:no, writable:no, value:3
 
-  constructor: (type, args = {}) ->
-    if type
-      date = Date.now()
-      perf = performance?.now() or 0
-      timeStamp = 1000 * date + Math.floor 1000 * (perf - Math.floor perf)
+    CAPTURING_PHASE : configurable:no, enumerable:yes, writable:no, value:1
+    BUBBLING_PHASE  : configurable:no, enumerable:yes, writable:no, value:3
+    DEFAULT_TYPE    : configurable:no, enumerable:yes, writable:no, value:'event'
 
-      Object.defineProperties this,
-        ___stop:
-          enumerable:no, configurable:yes, get: (-> no), set: (value) =>
-            if value is yes then Object.defineProperty this, '___stop',
-              enumerable:no, configurable:no, writable:no, value:yes
+  constructor: (type = Event.DEFAULT_TYPE) ->
+    date = Date.now()
+    perf = performance?.now() or 0
+    timestamp = 1000 * date + Math.floor 1000 * (perf - Math.floor perf)
 
-        defaultPrevented : configurable:yes, get: (-> no), set: (value) =>
-          if value is yes then Object.defineProperty this, 'defaultPrevented',
-            configurable:no, writable:no, value:yes
+    Object.defineProperties this,
 
-        type              : configurable:no, writable:no, value:type
-        bubbles           : configurable:no, writable:no, value:(args.bubbles or no)
-        cancelable        : configurable:no, writable:no, value:(args.cancelable or no)
-        timeStamp         : configurable:no, writable:no, value:timeStamp
+      ___is_event: configurable:no, enumerable:no, writable:no, value:yes
 
-        currentTarget     : configurable:yes, writable:no, value:null
-        eventPhase        : configurable:yes, writable:no, value:Event.NONE
-        target            : configurable:yes, writable:no, value:null
-        isTrusted         : configurable:yes, writable:no, value:no
+      ___type: configurable:no, enumerable:no, writable:yes, value:type
 
-        ___stop_immediate : configurable:yes, enumerable:no, writable:yes, value:no
-    else
-      throw new TypeError "Not enough arguments to Event"
+      ___timestamp: configurable:no, enumerable:no, writable:yes, value:timestamp
 
-  preventDefault: ->
-    @defaultPrevented ||= yes if @cancelable
+      ___source: configurable:no, enumerable:no, writable:yes, value:null
+
+      ___target: configurable:no, enumerable:no, writable:yes, value:null
+
+      ___phase: configurable:no, enumerable:no, writable:yes, value:null
+
+      ___canceled: configurable:no, enumerable:no, writable:yes, value:no
+
+      ___stopped: configurable:no, enumerable:no, writable:yes, value:no
+
+      ___stopped_immediate: configurable:no, enumerable:no, writable:yes, value:no
+
+      type: configurable:yes, enumerable:yes, get: => @___type
+
+      timestamp: configurable:yes, enumerable:yes, get: => @___timestamp
+
+      source: configurable:yes, enumerable:yes, get: => @___source
+
+      target: configurable:yes, enumerable:yes, get: => @___target
+
+      phase: configurable:yes, enumerable:yes, get: => @___phase
+
+      canceled: configurable:yes, enumerable:yes, get: => @___canceled
+
+      stopped: configurable:yes, enumerable:yes, get: => @___stopped
+
+      stoppedImmediate: configurable:yes, enumerable:yes, get: => @___stopped_immediate
+
+  cancel: ->
+    @___canceled = yes
     return this
 
-  stopImmediatePropagation: ->
-    @___stop_immediate = yes
+  stop: ->
+    @___stopped = yes
     return this
 
-  stopPropagation: ->
-    @___stop ||= yes
+  stopImmediate: ->
+    @___stopped_immediate = yes
     return this
 
