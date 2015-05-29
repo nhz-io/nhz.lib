@@ -33,5 +33,6 @@ module.exports = class Component extends [ Base, Child, Parent, EventSource, Eve
 
   hasChild: (child) -> if child?.___is_component then super else null
 
-
-  dispatchEvent: (event) -> super
+  emitEvent: (event, target = this) ->
+    if target?.___is_component then super
+    return this

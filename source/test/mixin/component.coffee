@@ -116,5 +116,5 @@ describe 'Component', ->
       it 'should not emit event if target is not "Component"', ->
         pass = yes
         (new Component).emitEvent (event = ___is_event:yes),
-          ___is_event_target:yes, dispatchEvent: pass = no
+          ___is_event_target:yes, dispatchEvent: -> pass = no
         pass.should.be.ok
