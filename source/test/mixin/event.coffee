@@ -217,20 +217,17 @@ describe 'Event', ->
     describe '#callback', ->
       it 'should be configurable', -> (isConfigurable (new Event), 'callback').should.be.equal yes
       it 'should be enumerable', -> (isEnumerable (new Event), 'callback').should.be.equal yes
-      it 'should not be writable', -> (isWritable (new Event), 'callback').should.be.equal no
       it 'should have a getter', -> (getter (new Event), 'callback').should.be.a.Function
       it 'should have a setter', -> (setter (new Event), 'callback').should.be.a.Function
 
       describe 'getter', -> it 'should return the value of "___callback"', ->
         (event = new Event).___callback = 'test'
-        event.target.should.be.equal event.___callback
+        event.callback.should.be.equal event.___callback
 
       describe 'setter', ->
-        it 'should return the value of "___callback"', ->
-          (event = new Event).___callback = 'test'
-          (event.callback = null).should.be.equal event.___callback
-
-        it 'should not set the "callback" if it is not a Function', -> should((new Event).callback = 'test').not.be.ok
+        it 'should ignore non Function argument', ->
+          (event = new Event).callback = 'test'
+          should(event.___callback).not.be.ok
 
         it 'should set the value of "___callback"', ->
           callback = ->

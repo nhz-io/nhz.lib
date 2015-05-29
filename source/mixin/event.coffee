@@ -32,6 +32,8 @@ module.exports = class Event extends require './base'
 
       ___stopped_immediate: configurable:no, enumerable:no, writable:yes, value:no
 
+      ___callback: configurable:no, enumerable:no, writable:yes, value:null
+
       type: configurable:yes, enumerable:yes, get: => @___type
 
       timestamp: configurable:yes, enumerable:yes, get: => @___timestamp
@@ -47,6 +49,11 @@ module.exports = class Event extends require './base'
       stopped: configurable:yes, enumerable:yes, get: => @___stopped
 
       stoppedImmediate: configurable:yes, enumerable:yes, get: => @___stopped_immediate
+
+      callback:
+        configurable:yes, enumerable:yes
+        get: => @___callback
+        set: (value) => if (not @___callback) and typeof value is 'function' then @___callback = value
 
   cancel: ->
     @___canceled = yes
