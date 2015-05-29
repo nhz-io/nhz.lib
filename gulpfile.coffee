@@ -45,7 +45,7 @@ $.gulp.task 'test', [ 'build' ], ->
   unless _.notest
     $.gulp
       .src [ "#{_.test}/**/*.js" ], read: false
-      .pipe $.test reporter: 'tap'
+      .pipe $.test reporter: 'dot'
 
 $.gulp.task 'dist', [ 'build', 'test' ], ->
   $.gulp
