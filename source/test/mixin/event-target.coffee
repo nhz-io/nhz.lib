@@ -119,7 +119,7 @@ describe 'EventTarget', ->
         (new EventTarget)
           .addEventListener 'test', listener = (->), Event.CAPTURING_PHASE
           .removeEventListener 'test', listener, Event.CAPTURING_PHASE
-          .___listeners[Event.BUBBLING_PHASE].should.be.empty
+          .___listeners[Event.CAPTURING_PHASE].should.be.empty
 
       it 'should do nothing when "phase" is not Event.BUBBLING_PHASE or Event.CAPTURING_PHASE', ->
         (new EventTarget)
@@ -252,10 +252,19 @@ describe 'EventTarget', ->
         count.should.be.equal 2
 
       it 'should pass the "event" to the listeners', ->
-        event = __is_event:yes, type:'test', phase:Event.BUBBLING_PHASE
+        event = ___is_event:yes, type:'test', phase:Event.BUBBLING_PHASE
         count = 0
         (new EventTarget)
           .addEventListener 'test', (e) -> count++ and e.should.be.equal event
           .addEventListener 'test', (e) -> count++ and e.should.be.equal event
+          .dispatchEvent event
+        count.should.be.equal 2
+
+      it 'should pass own instance as "this" argument to the listeners', ->
+        event = ___is_event:yes, type:'test', phase:Event.BUBBLING_PHASE
+        count = 0
+        (eventTarget = new EventTarget)
+          .addEventListener 'test', (e) -> count++ and this.should.be.equal eventTarget
+          .addEventListener 'test', (e) -> count++ and this.should.be.equal eventTarget
           .dispatchEvent event
         count.should.be.equal 2
