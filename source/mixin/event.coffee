@@ -1,6 +1,6 @@
 ### mixin.Event ###
 
-module.exports = class Event
+module.exports = class Event extends require './base'
   Object.defineProperties Event,
 
     CAPTURING_PHASE : configurable:no, enumerable:yes, writable:no, value:1

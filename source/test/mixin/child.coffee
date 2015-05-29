@@ -1,6 +1,7 @@
 ### test: Child ###
 
 should = require 'should'
+Base = require '../../mixin/base'
 Child = require '../../mixin/child'
 isConfigurable = require '../../property/is-configurable'
 isEnumerable = require '../../property/is-enumerable'
@@ -12,6 +13,8 @@ describe 'Child', ->
   it 'should be a class', ->
     Child.should.be.a.Function
     Child::constructor.should.be.equal Child
+
+  it 'should be a subclass of Base', -> (Object.create Child::).should.be.an.instanceof Base
 
   describe '#constructor()', ->
     it 'should return an instance of Child', -> (new Child).should.be.an.instanceof Child

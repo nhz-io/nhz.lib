@@ -1,6 +1,7 @@
 ### test: EventTarget ###
 
 should = require 'should'
+Base = require '../../mixin/base'
 Event = require '../../mixin/event'
 EventTarget = require '../../mixin/event-target'
 isConfigurable = require '../../property/is-configurable'
@@ -13,6 +14,8 @@ describe 'EventTarget', ->
   it 'should be a class', ->
     EventTarget.should.be.a.Function
     EventTarget::constructor.should.be.equal EventTarget
+
+  it 'should be a subclass of Base', -> (Object.create EventTarget::).should.be.an.instanceof Base
 
   describe '#constructor()', ->
     it 'should return an instance of EventTarget', -> (new EventTarget).should.be.an.instanceof EventTarget

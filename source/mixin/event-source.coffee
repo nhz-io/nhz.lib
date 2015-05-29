@@ -1,6 +1,6 @@
 ### EventSource ###
 
-module.exports = class EventSource
+module.exports = class EventSource extends require './base'
 
   constructor: ->
 

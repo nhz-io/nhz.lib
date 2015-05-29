@@ -1,6 +1,6 @@
 ### mixin.Parent ###
 
-module.exports = class Parent
+module.exports = class Parent extends require './base'
   constructor: ->
 
     Object.defineProperties this,

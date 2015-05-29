@@ -1,6 +1,7 @@
 ### test: mixin.Parent ###
 
 should = require 'should'
+Base = require '../../mixin/base'
 Parent = require '../../mixin/parent'
 isConfigurable = require '../../property/is-configurable'
 isEnumerable = require '../../property/is-enumerable'
@@ -10,6 +11,8 @@ describe 'Parent', ->
   it 'should be a class', ->
     Parent.should.be.a.Function
     Parent::constructor.should.be.equal Parent
+
+  it 'should be a subclass of Base', -> (Object.create Parent::).should.be.an.instanceof Base
 
   describe '#constructor()', ->
     it 'should return an instance of Parent', -> (new Parent).should.be.an.instanceof Parent

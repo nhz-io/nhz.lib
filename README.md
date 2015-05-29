@@ -166,11 +166,14 @@ LICENSE
 
 VERSION
 -------
+#### 0.0.17
+- Added mixin/base
+
 #### 0.0.16
 - Removed web-api/*
-- Added mixins/event
-- Added mixins/event-source
-- Added mixins/event-target
+- Added mixin/event
+- Added mixin/event-source
+- Added mixin/event-target
 
 #### 0.0.15
 - Added property/descriptor

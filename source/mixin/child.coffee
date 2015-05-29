@@ -1,6 +1,6 @@
-### Child ###
+### mixin.Child ###
 
-module.exports = class Child
+module.exports = class Child extends require './base'
 
   constructor: ->
 

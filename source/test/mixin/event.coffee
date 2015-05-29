@@ -1,6 +1,7 @@
 ### test: mixin.Event ###
 
 should = require 'should'
+Base = require '../../mixin/base'
 Event = require '../../mixin/event'
 isConfigurable = require '../../property/is-configurable'
 isEnumerable = require '../../property/is-enumerable'
@@ -12,6 +13,8 @@ describe 'Event', ->
   it 'should be a class', ->
     Event.should.be.a.Function
     Event::constructor.should.be.equal Event
+
+  it 'should be a subclass of Base', -> (Object.create Event::).should.be.an.instanceof Base
 
   describe '#constructor()', ->
     it 'should return an instance of Event', -> (new Event).should.be.an.instanceof Event

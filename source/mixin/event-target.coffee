@@ -2,7 +2,7 @@
 
 Event = require './event'
 
-module.exports = class EventTarget
+module.exports = class EventTarget extends require './base'
 
   constructor: ->
 

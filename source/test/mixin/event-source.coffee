@@ -1,6 +1,7 @@
 ### test: EventSource ###
 
 should = require 'should'
+Base = require '../../mixin/base'
 EventSource = require '../../mixin/event-source'
 isConfigurable = require '../../property/is-configurable'
 isEnumerable = require '../../property/is-enumerable'
@@ -12,6 +13,8 @@ describe 'EventSource', ->
   it 'should be a class', ->
     EventSource.should.be.a.Function
     EventSource::constructor.should.be.equal EventSource
+
+  it 'should be a subclass of Base', -> (Object.create EventSource::).should.be.an.instanceof Base
 
   describe '#constructor()', ->
     it 'should return an instance of EventSource', -> (new EventSource).should.be.an.instanceof EventSource
