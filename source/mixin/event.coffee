@@ -38,7 +38,10 @@ module.exports = class Event extends require './base'
 
       timestamp: configurable:yes, enumerable:yes, get: => @___timestamp
 
-      source: configurable:yes, enumerable:yes, get: => @___source
+      source:
+        configurable:yes, enumerable:yes
+        get: => @___source
+        set: (value) -> if (not @___source) and value?.___is_event_source then @___source = value
 
       target:
         configurable:yes, enumerable:yes
