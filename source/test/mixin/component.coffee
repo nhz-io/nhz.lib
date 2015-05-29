@@ -104,3 +104,17 @@ describe 'Component', ->
 
     describe '#dispatchEvent(event)', ->
       it 'should return own "Component" instance', -> (test = new Component).dispatchEvent().should.be.equal test
+
+    describe '#emitEvent(event, target = this)', ->
+      it 'should return own "Component" instance', -> (test = new Component).emitEvent().should.be.equal test
+      it 'should emit event to target', ->
+        pass = no
+        (new Component).emitEvent (event = ___is_event:yes),
+          ___is_event_target:yes, ___is_component:yes, dispatchEvent: (e) -> pass = (e is event)
+        pass.should.be.ok
+
+      it 'should not emit event if target is not "Component"', ->
+        pass = yes
+        (new Component).emitEvent (event = ___is_event:yes),
+          ___is_event_target:yes, dispatchEvent: pass = no
+        pass.should.be.ok
