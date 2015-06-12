@@ -166,6 +166,9 @@ LICENSE
 
 VERSION
 -------
+#### 0.0.18
+- Added mapper/css2json
+
 #### 0.0.17
 - Added mixin/base
 - Added mixin/component
