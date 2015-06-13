@@ -166,7 +166,7 @@ LICENSE
 
 VERSION
 -------
-#### 0.0.18
+#### 0.0.20
 - Added mapper/css2json
 
 #### 0.0.17

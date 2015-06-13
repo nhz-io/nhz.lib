@@ -10,3 +10,4 @@ module.exports =
   coffee   : require './coffee/index'
   property : require './property/index'
   mixin    : require './mixin/index'
+  mapper   : require './mapper/index'

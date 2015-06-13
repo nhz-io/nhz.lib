@@ -14,4 +14,5 @@ describe 'nhz', ->
   it 'should have "coffee" namespace', -> nhz.coffee.should.be.an.instanceof Object
   it 'should have "mixin" namespace', -> nhz.mixin.should.be.an.instanceof Object
   it 'should have "property" namespace', -> nhz.property.should.be.an.instanceof Object
+  it 'should have "mapper" namespace', -> nhz.mapper.should.be.an.instanceof Object
 
