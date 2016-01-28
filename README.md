@@ -239,8 +239,8 @@ VERSION
 #### 0.0.1
 - Initial commit
 
-[travis-image]: https://travis-ci.org/nhz-io/nhz.lib.svg
-[travis-url]: https://travis-ci.org/nhz-io/nhz.lib
+[travis-image]: https://travis-ci.org/NHZio/nhz.lib.svg
+[travis-url]: https://travis-ci.org/NHZio/nhz.lib
 
 [npm-image]: https://nodei.co/npm/nhz.lib.png
 [npm-url]: https://nodei.co/npm/nhz.lib
